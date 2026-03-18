@@ -1,0 +1,13 @@
+:root {
+  /* COLORES */
+  --color-bg: #0f172a;
+  --color-primary: #22c55e;
+  --color-text: #e5e7eb;
+  --color-card: #1e293b;
+
+  /* FORMATO */
+  --radius: 8px;
+
+  /* FUENTES */
+   --font-main: 'Inter', sans-serif;
+}
