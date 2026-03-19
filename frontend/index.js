@@ -1,31 +1,45 @@
 const socket = io();
 
-const boton = document.getElementById("btnMessage");
-const input = document.getElementById("messageInput");
+const btnMessage = document.getElementById("btnMessage");
+const inputMessage = document.getElementById("messageInput");
+const inputName = document.getElementById("inputNik");
 const chat = document.getElementById("chat");
+const containerNik = document.getElementById("container-nik");
+const btnNik = document.getElementById("btnNik");
+const title = document.getElementById("title");
+
+let user = "user";
+
+btnNik.addEventListener("click", ()=>{
+  //HACEMOS ALGO
+  containerNik.style.display = "none";
+  title.textContent =  `${title.textContent} (${inputName.value})`;
+  user = inputName.value;
+});
 
 // enviar mensaje
-boton.addEventListener("click", () => {
-  const mensaje = input.value;
+btnMessage.addEventListener("click", () => {
+  const mensaje = inputMessage.value;
 
   if (!mensaje) return;
 
   socket.emit("send_message", {
-    message: mensaje
+    message: mensaje,
+    user: user
   });
 
-  input.value = "";
+  inputMessage.value = "";
 });
 
 // recibir mensaje
 socket.on("receive_message", (data) => {
-  agregarMensaje(data.message);
+  agregarMensaje(data.message, data.user);
 });
 
 // función para renderizar mensajes
-function agregarMensaje(mensaje) {
+function agregarMensaje(mensaje, name) {
   const p = document.createElement("p");
-  p.textContent = mensaje;
+  p.textContent = `${name} dice: ${mensaje}`;
   chat.appendChild(p);
 
   // auto scroll
