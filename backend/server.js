@@ -27,7 +27,11 @@ io.on("connection", (socket) => {
     console.log("Mensaje recibido:", data);
 
     // reenviar a todos los clientes
-    io.emit("receive_message", data);
+    io.emit("receive_message", {
+      message: data.message,
+      user: data.user,
+      socketId: socket.id
+    });
   });
 });
 

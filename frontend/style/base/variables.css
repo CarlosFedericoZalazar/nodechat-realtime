@@ -5,6 +5,8 @@
   --color-second: #22b2c5;
   --color-text: #e5e7eb;
   --color-card: #1e293b;
+  --color-mychat: rgb(94, 94, 172);
+  --color-otherchat: rgb(188, 76, 138);
 
   /* FORMATO */
   --radius: 8px;

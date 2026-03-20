@@ -10,6 +10,12 @@ const title = document.getElementById("title");
 
 let user = "user";
 
+inputMessage.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    btnMessage.click();
+  }
+});
+
 btnNik.addEventListener("click", ()=>{
   //HACEMOS ALGO
   containerNik.style.display = "none";
@@ -33,15 +39,22 @@ btnMessage.addEventListener("click", () => {
 
 // recibir mensaje
 socket.on("receive_message", (data) => {
-  agregarMensaje(data.message, data.user);
+  agregarMensaje(data.message, data.user, data.socketId);
 });
 
 // función para renderizar mensajes
-function agregarMensaje(mensaje, name) {
+function agregarMensaje(mensaje, name, socketId) {
   const p = document.createElement("p");
-  p.textContent = `${name} dice: ${mensaje}`;
-  chat.appendChild(p);
 
-  // auto scroll
+  const esMio = socketId === socket.id;
+
+  p.classList.add(esMio ? "my-message" : "other-message");
+
+  p.innerHTML = `
+    <span class="name">${esMio ? "YO" : name}:</span>
+    ${mensaje}
+  `;
+
+  chat.appendChild(p);
   chat.scrollTop = chat.scrollHeight;
 }

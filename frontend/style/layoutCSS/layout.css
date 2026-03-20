@@ -9,3 +9,28 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
+
+.name {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.my-message {
+  background: var(--color-mychat);
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin: 5px;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.other-message {
+  background: var(--color-otherchat);
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin: 5px;
+  width: fit-content;
+  align-self: flex-end;
+}
