@@ -33,24 +33,25 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 
 - Servidor Express configurado
 - Integración de Socket.io
-- Conexión de múltiples clientes
+- Conexión de múltiples clientes en tiempo real
 - Emisión y escucha de eventos (`send_message`, `receive_message`)
 - Broadcast de mensajes a todos los clientes
 - Cliente web servido con `express.static`
-- Estructura inicial de UI
+- Sistema de nicknames por usuario
+- Renderizado de mensajes en tiempo real
+- Diferenciación visual entre mensajes propios y de otros usuarios
+- UI tipo chat con burbujas de mensaje
 - Organización modular de CSS (base, layout, components)
-
 ---
 
 ## 🔜 Próximas funcionalidades
 
-- Renderizado de mensajes en pantalla
-- Input de texto para enviar mensajes
-- Sistema de nicknames por usuario
-- Mostrar ID o nombre del emisor
 - Lista de usuarios conectados
+- Notificación de usuario conectado/desconectado
 - Salas de chat (rooms)
 - Persistencia de mensajes (base de datos)
+- Autenticación real (login)
+- Mensajes privados
 
 ---
 
@@ -121,14 +122,18 @@ Construir una aplicación de chat escalable que evolucione desde una implementac
 
 ## 🧪 Roadmap inmediato
 
-- [ ] Renderizar mensajes en la UI
-- [ ] Capturar input del usuario
-- [ ] Mostrar mensajes en tiempo real en pantalla
-- [ ] Agregar nickname al enviar mensajes
-- [ ] Mostrar quién envía cada mensaje
+- [x] Renderizar mensajes en la UI
+- [x] Capturar input del usuario
+- [x] Mostrar mensajes en tiempo real
+- [x] Agregar nickname al usuario
+- [x] Diferenciar mensajes propios y de otros
 
+- [ ] Mostrar usuarios conectados
+- [ ] Notificar conexiones/desconexiones
+- [ ] Implementar rooms
+- [ ] Persistencia con base de datos
 ---
 
 ## 📌 Autor
 
-Desarrollado por Charly 💻
+Desarrollado por Carlos Zalazar 💻

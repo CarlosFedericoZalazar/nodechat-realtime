@@ -4,12 +4,6 @@ body {
   font-family: sans-serif;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .name {
   font-weight: bold;
   margin-right: 5px;
@@ -22,7 +16,7 @@ body {
   border-radius: 10px;
   margin: 5px;
   width: fit-content;
-  align-self: flex-start;
+  align-self: flex-end;
 }
 
 .other-message {
@@ -32,5 +26,9 @@ body {
   border-radius: 10px;
   margin: 5px;
   width: fit-content;
-  align-self: flex-end;
+  align-self: flex-start;
+}
+.app {
+  display: flex;
+  height: 100vh;
 }

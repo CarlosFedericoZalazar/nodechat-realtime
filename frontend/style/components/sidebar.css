@@ -1,0 +1,18 @@
+#usersContainer {
+  width: 250px;
+  background: rgba(30, 30, 47, 0.9); /* 👈 leve transparencia */
+  color: white;
+  padding: 15px;
+  
+  border-right: 1px solid rgba(245, 243, 243, 0.1); /* 👈 separación sutil */
+}
+
+#usersList li {
+  padding: 8px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+#usersList li:hover {
+  background: rgba(255,255,255,0.1);
+}

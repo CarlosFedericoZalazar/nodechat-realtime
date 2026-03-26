@@ -18,9 +18,13 @@ inputMessage.addEventListener("keypress", (e) => {
 
 btnNik.addEventListener("click", ()=>{
   //HACEMOS ALGO
+  user = inputName.value;
+  socket.emit("set_user", user);
+
   containerNik.style.display = "none";
   title.textContent =  `${title.textContent} (${inputName.value})`;
-  user = inputName.value;
+
+  btnNik.disabled = true;
 });
 
 // enviar mensaje
@@ -57,4 +61,38 @@ function agregarMensaje(mensaje, name, socketId) {
 
   chat.appendChild(p);
   chat.scrollTop = chat.scrollHeight;
+}
+
+socket.on("user_joined", (user) => {
+  agregarMensajeSistema(`${user} se unió al chat`);
+});
+
+socket.on("user_left", (user) => {
+  agregarMensajeSistema(`${user} se desconectó`);
+});
+
+const usersList = document.getElementById("usersList");
+
+socket.on("users_list", (users) => {
+  renderUsers(users);
+});
+
+function renderUsers(users) {
+  usersList.innerHTML = "";
+
+  users.forEach((u) => {
+    const li = document.createElement("li");
+    li.textContent = u;
+    usersList.appendChild(li);
+  });
+}
+
+function agregarMensajeSistema(texto) {
+  const p = document.createElement("p");
+
+  p.textContent = texto;
+  p.style.textAlign = "center";
+  p.style.opacity = "0.6";
+
+  chat.appendChild(p);
 }

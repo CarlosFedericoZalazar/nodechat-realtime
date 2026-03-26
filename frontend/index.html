@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/main.css">
-    <title>NodeChat</title>
-</head>
-<div class="container">
 
-  <h1 id="title">💬 NodeChat</h1>
-  <div id="container-nik" style="display:block;">
-    <label for="inputNik">NIK</label>
-    <input id="inputNik" class="input">
-    <button class="button" id="btnNik">My Nik!</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/main.css">
+  <title>NodeChat</title>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- Sidebar usuarios -->
+    <aside id="usersContainer">
+      <h3>Usuarios online</h3>
+      <ul id="usersList"></ul>
+    </aside>
+
+    <!-- Chat principal -->
+    <main class="chat-container">
+
+      <h1 id="title">💬 NodeChat</h1>
+
+      <div id="container-nik">
+        <label for="inputNik">NIK</label>
+        <input id="inputNik" class="input">
+        <button class="button" id="btnNik">My Nik!</button>
+      </div>
+
+      <div id="chat"></div>
+
+      <div class="input-area">
+        <input type="text" id="messageInput" class="input" placeholder="Escribí un mensaje..." />
+        <button id="btnMessage" class="button">Enviar</button>
+      </div>
+
+    </main>
+
   </div>
-  <div id="chat"></div>
-  
-  <input type="text" id="messageInput" class="input" placeholder="Escribí un mensaje..." />
-  <button id="btnMessage" class="button">Enviar</button>
-  
-</div>
 
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
   <script src="index.js"></script>
-  
+
 </body>
 </html>
