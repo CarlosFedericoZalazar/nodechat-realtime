@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
 
   function getUsersList() {
     return Object.values(users);
-}
+  }
 });
 
 server.listen(3000, () => {
