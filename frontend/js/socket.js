@@ -1,4 +1,4 @@
-import { agregarMensaje, agregarMensajeSistema, renderUsers } from "./ui.js";
+import { agregarMensaje, agregarMensajeSistema, renderUsers, mostrarMensajeTyping, eliminarMensajeTyping  } from "./ui.js";
 
 export const socket = io();
 
@@ -9,6 +9,14 @@ export function initSocket() {
 
   socket.on("user_joined", (user) => {
     agregarMensajeSistema(`${user} se unió al chat`);
+  });
+
+  socket.on("user_typing", (user) => {
+    mostrarMensajeTyping(`${user.user} esta escribiendo...`);
+  });
+
+  socket.on("user_stop_typing", (user) => {
+    eliminarMensajeTyping(`${user.user} a dejado de escribir`);
   });
 
   socket.on("user_left", (user) => {

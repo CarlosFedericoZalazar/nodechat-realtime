@@ -9,8 +9,26 @@ const btnNik = document.getElementById("btnNik");
 const title = document.getElementById("title");
 
 export function initEvents() {
+
+  let typingTimeout;
+  let isTyping = false;
   inputMessage.addEventListener("keypress", (e) => {
     if (e.key === "Enter") btnMessage.click();
+  });
+
+  inputMessage.addEventListener("input", () => {
+
+    if (!isTyping) {
+      socket.emit("typing", { user });
+      isTyping = true;
+    }
+
+    clearTimeout(typingTimeout);
+
+    typingTimeout = setTimeout(() => {
+      socket.emit("stop_typing", { user });
+      isTyping = false;
+    }, 250); // 1 segundo sin escribir
   });
 
   inputName.addEventListener("keypress", (e) => {

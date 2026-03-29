@@ -22,10 +22,32 @@ export function agregarMensajeSistema(texto) {
 
   p.textContent = texto;
   p.style.textAlign = "center";
-  p.style.opacity = "0.6";
+  p.style.opacity = "0.5";
+  p.style.fontStyle = "italic";
 
   chat.appendChild(p);
 }
+
+let typingElement = null;
+
+export function mostrarMensajeTyping(texto) {
+  if (!typingElement) {
+    typingElement = document.createElement("p");
+    typingElement.id = "typing";
+    
+    chat.appendChild(typingElement);
+  }
+
+  typingElement.textContent = texto;
+}
+
+export function eliminarMensajeTyping() {
+  if (typingElement) {
+    typingElement.remove();
+    typingElement = null;
+  }
+}
+
 
 export function renderUsers(users) {
   usersList.innerHTML = "";
