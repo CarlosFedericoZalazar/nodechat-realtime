@@ -9,13 +9,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use(express.static("../frontend"));
+// app.use(express.static("../frontend"));
 
 const server = createServer(app);
 
 // 👉 inicializar sockets
 initSocket(server);
 
-server.listen(3000, () => {
-  console.log("Server running");
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
 });
