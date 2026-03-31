@@ -6,6 +6,13 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 
 ---
 
+## 🌐 Demo en producción
+🖥️ Frontend: https://nodechat-realtime-client.vercel.app
+
+⚙️ Backend: https://nodechat-realtime.onrender.com
+
+⚠️ Nota: el backend puede tardar unos segundos en responder (cold start de Render)
+
 ## 🚀 Tecnologías utilizadas
 
 * Node.js
@@ -22,6 +29,7 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Arquitectura cliente-servidor
 * Event-driven programming
 * Manejo de múltiples conexiones simultáneas
+* Gestión de estado en cliente (localStorage)
 * Broadcast de eventos entre clientes
 * Separación de responsabilidades (modularización)
 * Manejo de estado en cliente y servidor
@@ -39,7 +47,8 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Conexión de múltiples clientes en tiempo real
 * Envío y recepción de mensajes (`send_message`, `receive_message`)
 * Broadcast de mensajes a todos los clientes
-* Sistema de nicknames por usuario
+* Sistema de nickname + UUID
+* Persistencia de sesión en localStorage
 * Notificación de usuarios conectados/desconectados
 * Lista de usuarios online en tiempo real
 * Renderizado dinámico de mensajes
@@ -63,13 +72,29 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 
 ---
 
+## 🏗️ Arquitectura
+Estructura modular separando responsabilidades:
+### 🔹 Frontend
+
+* `socket.js` → conexión con el servidor
+* `events.js` → manejo de eventos
+* `ui.js` → gestión de la interfaz de usuario
+* `state.js` → gestión del estado de la aplicación
+* `main.js` → punto de entrada que integra todo
+
+### 🔹 Backend
+
+* `server.js` → punto de entrada del servidor
+* `config/socket.js` → configuración de Socket.io
+* `services/userService.js` → lógica de negocio para gestión de usuarios
+
 ## 📁 Estructura del proyecto
 
 ```
 nodechat/
 │
 ├── backend/
-│     ├── server.js
+│     ├── index.js
 │     ├── config/
 │     │     └── socket.js
 │     └── services/
@@ -150,19 +175,21 @@ Construir una aplicación de chat escalable que evolucione desde una implementac
 * [x] Notificaciones de conexión/desconexión
 * [x] Modularización del frontend
 * [x] Modularización del backend
+* [x] Typing indicator
+* [x] Deploy (Vercel + Render)
 
 ### 🚧 En progreso
 
 * [ ] Persistencia de mensajes
 * [ ] Historial al conectar
-* [ ] Typing indicator
+* [x] Typing indicator
 
 ### 🔜 Futuro
 
 * [ ] Salas de chat (rooms)
 * [ ] Autenticación con JWT
 * [ ] Mensajes privados
-* [ ] Deploy (Render / Railway / VPS)
+* [x] Deploy (Render / Railway / VPS)
 
 ---
 
