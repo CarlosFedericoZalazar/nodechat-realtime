@@ -6,7 +6,7 @@ export const socket = io("https://nodechat-realtime-server.onrender.com", {
 
 export function initSocket() {
   socket.on("receive_message", (data) => {
-    agregarMensaje(data.message, data.user, data.socketId, socket.id);
+    agregarMensaje(data.message, data.user.nickname, data.socketId, socket.id);
   });
 
   socket.on("user_joined", (user) => {

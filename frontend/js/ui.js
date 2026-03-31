@@ -2,6 +2,7 @@
 const containerNick = document.getElementById("container-nik");
 const sidebarUsers = document.getElementById("usersContainer");
 const inputMessage = document.getElementById("input-area");
+const btnExit = document.getElementById("btnExit");
 
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("usersList");
@@ -9,11 +10,16 @@ const usersList = document.getElementById("usersList");
 export function agregarMensaje(mensaje, name, socketId, myId) {
   const p = document.createElement("p");
 
+  console.log("MY ID:", socketId);
+  console.log("MSG ID:", myId);
+
   const esMio = socketId === myId;
+
+  console.log(esMio);
 
   p.classList.add(esMio ? "my-message" : "other-message");
 
-  p.innerHTML = `
+   p.innerHTML = `
     <span class="name">${esMio ? "YO" : name}:</span>
     ${mensaje}
   `;
@@ -67,8 +73,9 @@ export function renderUsers(users) {
 
 export function showChat(){
   containerNick.style.display = "none";
-  chat.style.display = "block";
+  chat.style.display = "flex";
   sidebarUsers.style.display = "block";
   inputMessage.style.display = "block";
+  btnExit.style.display = "block";
 }
 
