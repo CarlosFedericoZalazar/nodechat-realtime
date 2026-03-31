@@ -1,3 +1,8 @@
+
+const containerNick = document.getElementById("container-nik");
+const sidebarUsers = document.getElementById("usersContainer");
+const inputMessage = document.getElementById("input-area");
+
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("usersList");
 
@@ -50,11 +55,20 @@ export function eliminarMensajeTyping() {
 
 
 export function renderUsers(users) {
-  usersList.innerHTML = "";
+  const list = document.getElementById("usersList");
+  list.innerHTML = "";
 
-  users.forEach((u) => {
+  users.forEach(user => {
     const li = document.createElement("li");
-    li.textContent = u;
-    usersList.appendChild(li);
+    li.textContent = user.nickname; // ✅ clave
+    list.appendChild(li);
   });
 }
+
+export function showChat(){
+  containerNick.style.display = "none";
+  chat.style.display = "block";
+  sidebarUsers.style.display = "block";
+  inputMessage.style.display = "block";
+}
+

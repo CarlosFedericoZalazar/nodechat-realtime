@@ -1,12 +1,25 @@
-import { socket } from "./socket.js";
-import { user, setUser } from "./state.js";
+import { socket, initSocket } from "./socket.js";
+import { setUser, saveUser, getUser, delUser } from "./state.js";
+import {showChat} from "./ui.js";
 
 const btnMessage = document.getElementById("btnMessage");
+const btnExit = document.getElementById("btnExit");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
 const containerNik = document.getElementById("container-nik");
 const btnNik = document.getElementById("btnNik");
 const title = document.getElementById("title");
+const containerNick = document.getElementById("container-nik");
+
+export const initUserSession = (user) => {
+  setUser(user);
+  saveUser(user);
+
+  initSocket();
+  socket.connect();
+
+  socket.emit("join", user);
+};
 
 export function initEvents() {
 
@@ -19,16 +32,16 @@ export function initEvents() {
   inputMessage.addEventListener("input", () => {
 
     if (!isTyping) {
-      socket.emit("typing", { user });
+      socket.emit("typing", getUser() );
       isTyping = true;
     }
 
     clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(() => {
-      socket.emit("stop_typing", { user });
+      socket.emit("stop_typing", { user: getUser()});
       isTyping = false;
-    }, 250); // 1 segundo sin escribir
+    }, 250);
   });
 
   inputName.addEventListener("keypress", (e) => {
@@ -36,16 +49,18 @@ export function initEvents() {
   });
 
   btnNik.addEventListener("click", () => {
-    const newUser = inputName.value;
+  const nickname = inputName.value.trim();
 
-    setUser(newUser);
-    socket.emit("set_user", newUser);
+  if (!nickname) return;
 
-    containerNik.style.display = "none";
-    title.textContent += ` (${newUser})`;
+  const user = {
+    id: crypto.randomUUID(),
+    nickname
+  };
 
-    btnNik.disabled = true;
-  });
+  initUserSession(user);
+  showChat();
+});
 
   btnMessage.addEventListener("click", () => {
     const mensaje = inputMessage.value;
@@ -54,9 +69,13 @@ export function initEvents() {
 
     socket.emit("send_message", {
       message: mensaje,
-      user: user,
+      user: getUser(),
     });
 
     inputMessage.value = "";
+  });
+
+  btnExit.addEventListener("click", ()=>{
+    delUser();
   });
 }

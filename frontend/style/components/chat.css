@@ -21,3 +21,12 @@
   display: flex;
   gap: 10px;
 }
+
+
+@media (max-width: 768px) {
+ 
+  .chat-container {
+    order: 1;
+    height: calc(100vh - 150px);
+  }
+}

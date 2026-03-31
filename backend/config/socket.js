@@ -9,10 +9,10 @@ export function initSocket(server) {
   io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
 
-    socket.on("set_user", (username) => {
-      addUser(socket.id, username);
+    socket.on("join", (user) => {
+      addUser(socket.id, user);
 
-      io.emit("user_joined", username);
+      io.emit("user_joined", user.nickname);
       io.emit("users_list", getUsersList());
     });
 
@@ -24,8 +24,8 @@ export function initSocket(server) {
       });
     });
 
-    socket.on("typing", ({ user }) => {
-      socket.broadcast.emit("user_typing", { user });
+    socket.on("typing", (user) => {
+      socket.broadcast.emit("user_typing", user);
     });
 
     socket.on("stop_typing", ({ user }) => {

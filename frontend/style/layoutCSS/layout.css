@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+#title{
+  align-self: center;
+  font-size: 4rem;
+}
 .name {
   font-weight: bold;
   margin-right: 5px;
@@ -28,7 +32,37 @@ body {
   width: fit-content;
   align-self: flex-start;
 }
+
+#container-nik{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-self: center;
+  border: solid rgb(174, 173, 173) 0.5px;
+  border-radius: 5px;
+  background: var(--color-card);
+  padding: 20px;
+  align-items: center;
+}
 .app {
   display: flex;
   height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+
+  #usersContainer {
+    width: 100%;
+    height: 150px; /* o auto */
+    order: 2; /* lo mandás abajo */
+  }
+
+  .chat-container {
+    order: 1;
+    height: calc(100vh - 150px);
+  }
 }

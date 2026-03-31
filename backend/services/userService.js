@@ -1,13 +1,13 @@
 const users = {};
 
-export function addUser(socketId, username) {
-  users[socketId] = username;
+export function addUser(socketId, user) {
+  users[socketId] = user;
 }
 
 export function removeUser(socketId) {
-  const username = users[socketId];
+  const user = users[socketId];
   delete users[socketId];
-  return username;
+  return user;
 }
 
 export function getUsersList() {

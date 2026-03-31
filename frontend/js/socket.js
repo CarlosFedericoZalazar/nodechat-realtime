@@ -1,6 +1,8 @@
 import { agregarMensaje, agregarMensajeSistema, renderUsers, mostrarMensajeTyping, eliminarMensajeTyping  } from "./ui.js";
 
-export const socket = io();
+export const socket = io({
+  autoConnect: false
+});
 
 export function initSocket() {
   socket.on("receive_message", (data) => {
@@ -12,11 +14,11 @@ export function initSocket() {
   });
 
   socket.on("user_typing", (user) => {
-    mostrarMensajeTyping(`${user.user} esta escribiendo...`);
+    mostrarMensajeTyping(`${user.nickname} esta escribiendo...`);
   });
 
   socket.on("user_stop_typing", (user) => {
-    eliminarMensajeTyping(`${user.user} a dejado de escribir`);
+    eliminarMensajeTyping(`${user.nickname} a dejado de escribir`);
   });
 
   socket.on("user_left", (user) => {

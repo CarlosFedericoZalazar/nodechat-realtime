@@ -9,29 +9,30 @@
 </head>
 
 <body>
-
+  
   <div class="app">
-
+    
     <!-- Sidebar usuarios -->
-    <aside id="usersContainer">
+    <aside id="usersContainer" style="display:none;">
       <h3>Usuarios online</h3>
       <ul id="usersList"></ul>
     </aside>
-
+    
     <!-- Chat principal -->
     <main class="chat-container">
-
+      
+      <button id="btnExit" class="button" style="display:none;">SALIR</button>
       <h1 id="title">💬 NodeChat</h1>
 
       <div id="container-nik">
-        <label for="inputNik">NIK</label>
-        <input id="inputNik" class="input">
+        <label for="inputNik">ENTER YOUR NIK!</label>
+        <input id="inputNik" placeholder="your nick!" class="input">
         <button class="button" id="btnNik">My Nik!</button>
       </div>
 
-      <div id="chat"></div>
+      <div id="chat" style="display:none;"></div>
 
-      <div class="input-area">
+      <div id= "input-area" class="input-area" style="display:none;">
         <input type="text" id="messageInput" class="input" placeholder="Escribí un mensaje..." />
         <button id="btnMessage" class="button">Enviar</button>
       </div>

@@ -16,3 +16,14 @@
 #usersList li:hover {
   background: rgba(255,255,255,0.1);
 }
+
+
+@media (max-width: 768px) {
+ 
+  #usersContainer {
+    width: 100%;
+    height: 150px; /* o auto */
+    order: 2; /* lo mandás abajo */
+  }
+
+}

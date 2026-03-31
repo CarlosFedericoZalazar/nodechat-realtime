@@ -1,5 +1,13 @@
-import { initSocket } from "./socket.js";
-import { initEvents } from "./events.js";
+import { initEvents, initUserSession } from "./events.js";
+import { loadUser } from "./state.js";
+import {showChat} from "./ui.js";
 
-initSocket();
 initEvents();
+
+// 🔥 AUTO LOGIN
+const savedUser = loadUser();
+
+if (savedUser) {
+  initUserSession(savedUser);
+  showChat();
+}
