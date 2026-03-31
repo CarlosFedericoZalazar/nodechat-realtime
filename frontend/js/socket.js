@@ -13,6 +13,10 @@ export function initSocket() {
     agregarMensajeSistema(`${user} se unió al chat`);
   });
 
+  socket.on("user_left", (user) => {
+    agregarMensajeSistema(`${user.nickname} se desconectó`);
+  });
+
   socket.on("user_typing", (user) => {
     mostrarMensajeTyping(`${user.nickname} esta escribiendo...`);
   });
@@ -21,9 +25,6 @@ export function initSocket() {
     eliminarMensajeTyping(`${user.nickname} a dejado de escribir`);
   });
 
-  socket.on("user_left", (user) => {
-    agregarMensajeSistema(`${user} se desconectó`);
-  });
 
   socket.on("users_list", (users) => {
     renderUsers(users);
