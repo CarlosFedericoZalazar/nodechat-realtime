@@ -5,13 +5,11 @@
   width: 70%;
 }
 
+.input-area.hidden {
+  display: none;
+}
+
 #inputNik{
   margin-bottom: 5px;
   width: 80%;
-}
-
-#btnExit{
-  width: 20%;
-  background-color: var(--color-exit);
-  color: whitesmoke;
 }

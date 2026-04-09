@@ -1,15 +1,12 @@
 import { socket, initSocket } from "./socket.js";
 import { setUser, saveUser, getUser, delUser } from "./state.js";
-import {showChat} from "./ui.js";
+import {resetUI, showChat} from "./ui.js";
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
-const containerNik = document.getElementById("container-nik");
 const btnNik = document.getElementById("btnNik");
-const title = document.getElementById("title");
-const containerNick = document.getElementById("container-nik");
 
 export const initUserSession = (user) => {
   setUser(user);
@@ -77,5 +74,6 @@ export function initEvents() {
 
   btnExit.addEventListener("click", ()=>{
     delUser();
+    resetUI();
   });
 }

@@ -4,17 +4,18 @@ body {
   font-family: sans-serif;
 }
 
-#title{
+#title {
   align-self: center;
   font-size: 4rem;
 }
+
 .name {
   font-weight: bold;
   margin-right: 5px;
 }
 
 
-#container-nik{
+#container-nik {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -26,10 +27,37 @@ body {
   padding: 20px;
   align-items: center;
 }
+
+#container-nik.hidden {
+  display: none;
+}
+
 .app {
   display: flex;
   height: 100vh;
 }
+
+
+  #chat-head {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  /* Estado inicial */
+  #chat-head.centered {
+    justify-content: center;
+  }
+
+  /* Estado activo */
+  #chat-head.active {
+    justify-content: space-between;
+  }
+
+  /* Botón oculto */
+  .hidden {
+    display: none;
+  }
 
 @media (max-width: 768px) {
   .app {
@@ -38,12 +66,15 @@ body {
 
   #usersContainer {
     width: 100%;
-    height: 150px; /* o auto */
-    order: 2; /* lo mandás abajo */
+    height: 150px;
+    /* o auto */
+    order: 2;
+    /* lo mandás abajo */
   }
 
   .chat-container {
     order: 1;
     height: calc(100vh - 150px);
   }
+
 }

@@ -10,6 +10,10 @@
   margin-bottom: 10px;
 }
 
+#chat.hidden {
+  display: none;
+}
+
 
 .chat-container {
   flex: 1;
