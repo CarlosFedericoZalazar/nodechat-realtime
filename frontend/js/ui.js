@@ -3,6 +3,7 @@ const containerNick = document.getElementById("container-nik");
 const sidebarUsers = document.getElementById("usersContainer");
 const inputMessage = document.getElementById("input-area");
 const btnExit = document.getElementById("btnExit");
+const chatHead = document.getElementById("chat-head");
 
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("usersList");
@@ -72,10 +73,21 @@ export function renderUsers(users) {
 }
 
 export function showChat(){
-  containerNick.style.display = "none";
-  chat.style.display = "flex";
-  sidebarUsers.style.display = "block";
-  inputMessage.style.display = "block";
-  btnExit.style.display = "block";
+  containerNick.classList.add("hidden");
+  chat.classList.remove("hidden");
+  sidebarUsers.classList.remove("hidden");
+  inputMessage.classList.remove("hidden");
+  btnExit.classList.remove("hidden");
+  chatHead.classList.remove("centered");
+  chatHead.classList.add("active");
+}
+
+export function resetUI(){
+  containerNick.classList.remove("hidden");
+  chat.classList.add("hidden");
+  sidebarUsers.classList.add("hidden");
+  inputMessage.classList.add("hidden");
+  btnExit.classList.add("hidden");
+  chatHead.classList.add("centered");
 }
 

@@ -13,3 +13,10 @@
 .button:hover{
   transform: scale(1.05);
 }
+
+
+#btnExit{
+  width: 20%;
+  background-color: var(--color-exit);
+  color: whitesmoke;
+}
