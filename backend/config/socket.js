@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import { addUser, removeUser, getUsersList } from "../services/userService.js";
+import { saveMessage } from "../services/messageService.js";
 
 export function initSocket(server) {
   const io = new Server(server, {
@@ -16,14 +17,23 @@ export function initSocket(server) {
       io.emit("users_list", getUsersList());
     });
 
-    socket.on("send_message", (data) => {
-      io.emit("receive_message", {
-        message: data.message,
-        user: data.user,
-        socketId: socket.id
-      });
-    });
+    socket.on("send_message", async (data) => {
+      try {
+        await saveMessage(data);
 
+        io.emit("receive_message", {
+          message: data.message,
+          user: data.user,
+          socketId: socket.id,
+        });
+      } catch (e) {
+        console.error("Error guardando mensaje:", e);
+
+        socket.emit("message_error", {
+          message: "No se pudo enviar el mensaje."
+        });
+      }
+    });
     socket.on("typing", (user) => {
       socket.broadcast.emit("user_typing", user);
     });
@@ -44,4 +54,3 @@ export function initSocket(server) {
     });
   });
 }
-
