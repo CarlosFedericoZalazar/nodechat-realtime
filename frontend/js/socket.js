@@ -1,10 +1,15 @@
 import { agregarMensaje, agregarMensajeSistema, renderUsers, mostrarMensajeTyping, eliminarMensajeTyping  } from "./ui.js";
 
-export const socket = io("https://nodechat-realtime-server.onrender.com", {
+export const socket = io("https://nodechat-realtime.onrender.com", {
   autoConnect: false
 });
 
 export function initSocket() {
+  socket.on("receive_message", (data) => {
+    agregarMensaje(data.message, data.user.nickname, data.socketId, socket.id);
+  });
+
+    
   socket.on("receive_message", (data) => {
     agregarMensaje(data.message, data.user.nickname, data.socketId, socket.id);
   });

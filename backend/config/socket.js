@@ -1,11 +1,12 @@
 import { Server } from "socket.io";
 import { addUser, removeUser, getUsersList } from "../services/userService.js";
-import { saveMessage } from "../services/messageService.js";
+import { saveMessage, getMessages } from "../services/messageService.js";
 
 export function initSocket(server) {
   const io = new Server(server, {
     cors: { origin: "*" }
   });
+  console.log("init socket");
 
   io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
@@ -15,6 +16,13 @@ export function initSocket(server) {
 
       io.emit("user_joined", user.nickname);
       io.emit("users_list", getUsersList());
+    });
+
+    socket.on("join_chat", async () => {
+      console.log("JOIN CHAT recibido");
+      const messages = await getMessages();
+
+      socket.emit("chat_history", messages);
     });
 
     socket.on("send_message", async (data) => {
@@ -34,14 +42,16 @@ export function initSocket(server) {
         });
       }
     });
+    
     socket.on("typing", (user) => {
       socket.broadcast.emit("user_typing", user);
     });
 
     socket.on("stop_typing", ({ user }) => {
       socket.broadcast.emit("user_stop_typing", { user });
+      console.log("escribiendo...");
     });
-
+    
     socket.on("disconnect", () => {
       const username = removeUser(socket.id);
 

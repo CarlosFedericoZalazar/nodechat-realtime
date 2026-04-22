@@ -16,3 +16,20 @@ export async function saveMessage(data) {
         throw e;
     }
 }
+
+export async function getMessages() {
+  try {
+    const { data, error } = await supabase
+      .from("messages")
+      .select("*")
+      .order("created_at", { ascending: true })
+      .limit(50);
+      
+    if (error) throw error
+
+    return data
+  } catch (e) {
+    console.error(e)
+    return []
+  }
+}

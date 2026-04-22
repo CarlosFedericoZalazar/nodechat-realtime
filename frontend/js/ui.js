@@ -82,12 +82,16 @@ export function showChat(){
   chatHead.classList.add("active");
 }
 
+
 export function resetUI(){
   containerNick.classList.remove("hidden");
   chat.classList.add("hidden");
   sidebarUsers.classList.add("hidden");
   inputMessage.classList.add("hidden");
-  btnExit.classList.add("hidden");
+  btnExit.classList.add("hidden"); 
   chatHead.classList.add("centered");
 }
 
+export function clearChat(){
+  chat.innerHTML= "";
+}

@@ -32,6 +32,27 @@ body {
   display: none;
 }
 
+#usersContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 280px;
+  height: 100vh;
+
+  background: var(--color-card);
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+
+  z-index: 100;
+}
+
+#usersContainer.active {
+  transform: translateX(0);
+}
+
 .app {
   display: flex;
   height: 100vh;
@@ -65,16 +86,9 @@ body {
   }
 
   #usersContainer {
-    width: 100%;
-    height: 150px;
-    /* o auto */
-    order: 2;
-    /* lo mandás abajo */
-  }
-
-  .chat-container {
-    order: 1;
-    height: calc(100vh - 150px);
+    width: 75%;
+    max-width: 300px;
+    top: 20px;
   }
 
 }

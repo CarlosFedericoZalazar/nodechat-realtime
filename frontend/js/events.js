@@ -1,12 +1,14 @@
 import { socket, initSocket } from "./socket.js";
 import { setUser, saveUser, getUser, delUser } from "./state.js";
-import {resetUI, showChat} from "./ui.js";
+import { resetUI, showChat, clearChat, agregarMensaje } from "./ui.js";
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
+const btnListUsers = document.getElementById("btnUsers");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
+const panel = document.getElementById("usersContainer");
 
 export const initUserSession = (user) => {
   setUser(user);
@@ -16,7 +18,22 @@ export const initUserSession = (user) => {
   socket.connect();
 
   socket.emit("join", user);
+  socket.emit("join_chat");
+
+  socket.on("chat_history", (messages) => {
+    clearChat();
+    console.log("estoy en el chat history!");
+    messages.forEach(msg => {
+      agregarMensaje(
+        msg.content,
+        msg.nickname,
+        msg.user_id,   
+        getUser().id
+      );
+    });
+  });
 };
+
 
 export function initEvents() {
 
@@ -29,14 +46,14 @@ export function initEvents() {
   inputMessage.addEventListener("input", () => {
 
     if (!isTyping) {
-      socket.emit("typing", getUser() );
+      socket.emit("typing", getUser());
       isTyping = true;
     }
 
     clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(() => {
-      socket.emit("stop_typing", { user: getUser()});
+      socket.emit("stop_typing", { user: getUser() });
       isTyping = false;
     }, 250);
   });
@@ -45,19 +62,23 @@ export function initEvents() {
     if (e.key === "Enter") btnNik.click();
   });
 
+  btnListUsers.addEventListener("click", () => {
+    panel.classList.toggle("active")
+  })
+
   btnNik.addEventListener("click", () => {
-  const nickname = inputName.value.trim();
+    const nickname = inputName.value.trim();
 
-  if (!nickname) return;
+    if (!nickname) return;
 
-  const user = {
-    id: crypto.randomUUID(),
-    nickname
-  };
+    const user = {
+      id: crypto.randomUUID(),
+      nickname
+    };
 
-  initUserSession(user);
-  showChat();
-});
+    initUserSession(user);
+    showChat();
+  });
 
   btnMessage.addEventListener("click", () => {
     const mensaje = inputMessage.value;
@@ -72,7 +93,7 @@ export function initEvents() {
     inputMessage.value = "";
   });
 
-  btnExit.addEventListener("click", ()=>{
+  btnExit.addEventListener("click", () => {
     delUser();
     resetUI();
   });
