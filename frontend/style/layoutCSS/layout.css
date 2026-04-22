@@ -14,7 +14,6 @@ body {
   margin-right: 5px;
 }
 
-
 #container-nik {
   margin-top: 50px;
   display: flex;
@@ -29,6 +28,17 @@ body {
 }
 
 #container-nik.hidden {
+  display: none;
+}
+
+#buttonsHeader {
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  gap: 5px;
+}
+
+#buttonsHeader.hidden {
   display: none;
 }
 

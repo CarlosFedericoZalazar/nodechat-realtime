@@ -9,10 +9,6 @@ export function initSocket() {
     agregarMensaje(data.message, data.user.nickname, data.socketId, socket.id);
   });
 
-    
-  socket.on("receive_message", (data) => {
-    agregarMensaje(data.message, data.user.nickname, data.socketId, socket.id);
-  });
 
   socket.on("user_joined", (user) => {
     agregarMensajeSistema(`${user} se unió al chat`);

@@ -9,7 +9,7 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 ## 🌐 Demo en producción
 🖥️ Frontend: https://nodechat-realtime-client.vercel.app
 
-⚙️ Backend: https://nodechat-realtime.onrender.com
+⚙️ Backend: https://nodechat-realtime-server.onrender.com
 
 ⚠️ Nota: el backend puede tardar unos segundos en responder (cold start de Render)
 

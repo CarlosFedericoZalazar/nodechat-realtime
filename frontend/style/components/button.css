@@ -16,7 +16,7 @@
 
 
 #btnExit{
-  width: 20%;
+  width: 100px;
   background-color: var(--color-exit);
   color: whitesmoke;
 }
