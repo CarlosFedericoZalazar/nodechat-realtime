@@ -1,6 +1,6 @@
 import { agregarMensaje, agregarMensajeSistema, renderUsers, mostrarMensajeTyping, eliminarMensajeTyping  } from "./ui.js";
 
-export const socket = io("https://nodechat-realtime.onrender.com", {
+export const socket = io("https://nodechat-realtime-server.onrender.com", {
   autoConnect: false
 });
 
