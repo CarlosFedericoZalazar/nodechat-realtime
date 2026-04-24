@@ -1,6 +1,8 @@
 # 💬 NodeChat — Real-time Chat Application
 
-NodeChat es una aplicación de chat en tiempo real construida con WebSockets que permite a múltiples usuarios conectarse y comunicarse instantáneamente.
+NodeChat es una aplicación de chat en tiempo real construida con WebSockets y persistencia en base de datos, que permite a múltiples usuarios conectarse y comunicarse instantáneamente.
+
+Incluye gestión de usuarios, historial de mensajes y arquitectura modular escalable.
 
 Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de demostrar conocimientos en aplicaciones realtime, arquitectura cliente-servidor y manejo de eventos, siguiendo buenas prácticas de organización y escalabilidad.
 
@@ -18,9 +20,9 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Node.js
 * Express.js
 * Socket.io
+* Supabase (PostgreSQL)
 * HTML, CSS, JavaScript (Vanilla)
 * Arquitectura modular (frontend y backend)
-
 ---
 
 ## 🧠 Conceptos clave implementados
@@ -33,6 +35,8 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Broadcast de eventos entre clientes
 * Separación de responsabilidades (modularización)
 * Manejo de estado en cliente y servidor
+* Persistencia de datos en tiempo real
+* Integración con base de datos (Supabase)
 
 ---
 
@@ -57,18 +61,18 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Scroll automático del chat
 * Frontend modularizado (events, ui, socket, state)
 * Backend modularizado (configuración de sockets y servicios)
+* Persistencia de mensajes en base de datos (Supabase)
+* Carga de historial al conectar
+* Indicador de usuario escribiendo (typing)
 
 ---
 
 ## 🔜 Próximas funcionalidades
 
 * Salas de chat (rooms)
-* Indicador de usuario escribiendo (typing indicator)
-* Persistencia de mensajes (Supabase o DB)
-* Historial de mensajes al conectar
-* Autenticación real (login con JWT)
 * Mensajes privados
-* Deploy en producción
+* Autenticación real (JWT)
+* Upload de archivos/imágenes
 
 ---
 
@@ -88,6 +92,16 @@ Estructura modular separando responsabilidades:
 * `config/socket.js` → configuración de Socket.io
 * `services/userService.js` → lógica de negocio para gestión de usuarios
 
+## 🔐 Variables de entorno (.env)
+
+El backend utiliza variables de entorno para la conexión con Supabase.
+
+Ejemplo:
+```
+SUPABASE_URL=https://tu-supabase-url.supabase.co
+SUPABASE_KEY=tu-supabase-key
+```   
+
 ## 📁 Estructura del proyecto
 
 ```
@@ -99,6 +113,7 @@ nodechat/
 │     │     └── socket.js
 │     └── services/
 │           └── userService.js
+│           └── messageService.js
 │
 └── frontend/
       ├── index.html
@@ -180,16 +195,13 @@ Construir una aplicación de chat escalable que evolucione desde una implementac
 
 ### 🚧 En progreso
 
-* [ ] Persistencia de mensajes
-* [ ] Historial al conectar
-* [x] Typing indicator
+* [ ] Salas de chat (rooms)
 
 ### 🔜 Futuro
 
-* [ ] Salas de chat (rooms)
 * [ ] Autenticación con JWT
 * [ ] Mensajes privados
-* [x] Deploy (Render / Railway / VPS)
+* [ ] Upload de archivos
 
 ---
 
