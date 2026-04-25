@@ -50,8 +50,8 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Integración completa de Socket.io
 * Conexión de múltiples clientes en tiempo real
 * Envío y recepción de mensajes (`send_message`, `receive_message`)
-* Broadcast de mensajes a todos los clientes
 * Sistema de nickname + UUID
+* Validación de nickname único en tiempo real (frontend + backend)
 * Persistencia de sesión en localStorage
 * Notificación de usuarios conectados/desconectados
 * Lista de usuarios online en tiempo real
@@ -61,18 +61,32 @@ Este proyecto forma parte de mi portfolio como desarrollador, con el objetivo de
 * Scroll automático del chat
 * Frontend modularizado (events, ui, socket, state)
 * Backend modularizado (configuración de sockets y servicios)
-* Persistencia de mensajes en base de datos (Supabase)
-* Carga de historial al conectar
-* Indicador de usuario escribiendo (typing)
 
+#### 🏠 Salas de chat (Rooms)
+* Soporte para múltiples salas (`General`, `Dev`, `Random`)
+* Cambio dinámico de sala desde la UI
+* Aislamiento de mensajes por sala
+* Historial de mensajes por room (Supabase)
+* Indicadores de escritura (`typing`) por sala
+* Reconexión automática a la última sala (localStorage)
+
+#### 💾 Persistencia
+* Persistencia de mensajes en base de datos (Supabase)
+* Carga de historial al conectar (por room)
+
+#### ⚡ Optimización en tiempo real
+* Prevención de duplicación de eventos (manejo de listeners con `socket.off`)
+* Comunicación basada en eventos con callbacks (Socket.io)
 ---
 
-## 🔜 Próximas funcionalidades
+### 🚧 En progreso
 
-* Salas de chat (rooms)
-* Mensajes privados
-* Autenticación real (JWT)
-* Upload de archivos/imágenes
+* [ ] Mensajes privados
+
+### 🔜 Futuro
+
+* [ ] Autenticación con JWT
+* [ ] Upload de archivos
 
 ---
 

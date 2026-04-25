@@ -10,14 +10,11 @@ const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
 const panel = document.getElementById("usersContainer");
 
-let currentRoom = "General";
+let currentRoom = localStorage.getItem("room") || "General";
 
 export const initUserSession = (user) => {
   setUser(user);
   saveUser(user);
-
-  initSocket();
-  socket.connect();
 
   socket.emit("join", user);
 
@@ -79,9 +76,16 @@ export function initEvents() {
   })
 
   btnNik.addEventListener("click", () => {
-    const nickname = inputName.value.trim();
+  const nickname = inputName.value.trim();
 
-    if (!nickname) return;
+  if (!nickname) return;
+
+  socket.emit("check_nickname", nickname, (response) => {
+
+    if (response.exists) {
+      alert("Ese nickname ya está en uso");
+      return;
+    }
 
     const user = {
       id: crypto.randomUUID(),
@@ -91,6 +95,8 @@ export function initEvents() {
     initUserSession(user);
     showChat();
   });
+
+});
 
   btnMessage.addEventListener("click", () => {
     const mensaje = inputMessage.value;
@@ -114,6 +120,7 @@ export function initEvents() {
 
 export function changeRoom(roomName) {
   currentRoom = roomName;
+  localStorage.setItem("room", roomName);
   clearChat();
   socket.emit("join_room", roomName);
 }

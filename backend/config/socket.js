@@ -14,7 +14,24 @@ export function initSocket(server) {
   io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
 
+    socket.on("check_nickname", (nickname, callback) => {
+      const users = getUsersList();
+      const exists = users.some(
+        user => user.nickname.toLowerCase() === nickname.toLowerCase()
+      );
+      callback({ exists });
+    });
+
     socket.on("join", (user) => {
+      const exists = getUsersList().some(
+        u => u.nickname.toLowerCase() === user.nickname.toLowerCase()
+      );
+
+      if (exists) {
+        socket.emit("nickname_error", "Nombre en uso");
+        return;
+      }
+
       addUser(socket.id, user);
 
       const defaultRoom = "Dev";
@@ -26,8 +43,8 @@ export function initSocket(server) {
 
       io.emit("user_joined", user.nickname);
       io.emit("users_list", getUsersList());
-    }); 
-    
+    });
+
     socket.on("join", (user) => {
       addUser(socket.id, user);
 
