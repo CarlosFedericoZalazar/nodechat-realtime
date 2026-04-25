@@ -9,6 +9,11 @@ body {
   font-size: 4rem;
 }
 
+#title-room{
+ font-family: var(--font-main); 
+ margin-left: 20px;
+ margin-bottom: 10px;
+}
 .name {
   font-weight: bold;
   margin-right: 5px;
@@ -99,6 +104,10 @@ body {
     width: 75%;
     max-width: 300px;
     top: 20px;
+  }
+
+  #title{
+    font-size: 2rem;
   }
 
 }

@@ -2,6 +2,9 @@ import { Server } from "socket.io";
 import { addUser, removeUser, getUsersList } from "../services/userService.js";
 import { saveMessage, getMessages } from "../services/messageService.js";
 
+const rooms = ["General", "Dev", "Random"];
+let currentRoom = null;
+
 export function initSocket(server) {
   const io = new Server(server, {
     cors: { origin: "*" }
@@ -14,6 +17,27 @@ export function initSocket(server) {
     socket.on("join", (user) => {
       addUser(socket.id, user);
 
+      const defaultRoom = "Dev";
+
+      socket.join(defaultRoom);
+      currentRoom = defaultRoom;
+
+      socket.emit("room_list", rooms);
+
+      io.emit("user_joined", user.nickname);
+      io.emit("users_list", getUsersList());
+    }); 
+    
+    socket.on("join", (user) => {
+      addUser(socket.id, user);
+
+      const defaultRoom = "General";
+
+      socket.join(defaultRoom);
+      currentRoom = defaultRoom;
+
+      socket.emit("room_list", rooms);
+
       io.emit("user_joined", user.nickname);
       io.emit("users_list", getUsersList());
     });
@@ -25,15 +49,31 @@ export function initSocket(server) {
       socket.emit("chat_history", messages);
     });
 
+    socket.on("join_room", async (roomName) => {
+      if (currentRoom) {
+        socket.leave(currentRoom);
+      }
+      socket.join(roomName);
+      currentRoom = roomName;
+      const messages = await getMessages(roomName);
+
+      socket.emit("chat_history", messages);
+    });
+
     socket.on("send_message", async (data) => {
       try {
-        await saveMessage(data);
+        const { room, message, user } = data;
 
-        io.emit("receive_message", {
-          message: data.message,
-          user: data.user,
-          socketId: socket.id,
+        if (!room) return;
+
+        await saveMessage({ room, message, user });
+        console.log(`${room}`);
+        io.to(room).emit("receive_message", {
+          message,
+          user,
+          userId: user.id
         });
+
       } catch (e) {
         console.error("Error guardando mensaje:", e);
 
@@ -42,16 +82,15 @@ export function initSocket(server) {
         });
       }
     });
-    
-    socket.on("typing", (user) => {
-      socket.broadcast.emit("user_typing", user);
+
+    socket.on("typing", ({ user, room }) => {
+      socket.to(room).emit("user_typing", user);
     });
 
-    socket.on("stop_typing", ({ user }) => {
-      socket.broadcast.emit("user_stop_typing", { user });
-      console.log("escribiendo...");
+    socket.on("stop_typing", ({ user, room }) => {
+      socket.to(room).emit("user_stop_typing", { user });
     });
-    
+
     socket.on("disconnect", () => {
       const username = removeUser(socket.id);
 

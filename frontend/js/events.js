@@ -10,6 +10,8 @@ const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
 const panel = document.getElementById("usersContainer");
 
+let currentRoom = "General";
+
 export const initUserSession = (user) => {
   setUser(user);
   saveUser(user);
@@ -18,8 +20,10 @@ export const initUserSession = (user) => {
   socket.connect();
 
   socket.emit("join", user);
-  socket.emit("join_chat");
 
+  socket.emit("join_room", currentRoom);
+
+  socket.off("chat_history");
   socket.on("chat_history", (messages) => {
     clearChat();
     console.log("estoy en el chat history!");
@@ -27,7 +31,7 @@ export const initUserSession = (user) => {
       agregarMensaje(
         msg.content,
         msg.nickname,
-        msg.user_id,   
+        msg.user_id,
         getUser().id
       );
     });
@@ -46,17 +50,25 @@ export function initEvents() {
   inputMessage.addEventListener("input", () => {
 
     if (!isTyping) {
-      socket.emit("typing", getUser());
+      socket.emit("typing", {
+        user: getUser(),
+        room: currentRoom
+      });
       isTyping = true;
     }
 
     clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(() => {
-      socket.emit("stop_typing", { user: getUser() });
+      socket.emit("stop_typing", {
+        user: getUser(),
+        room: currentRoom
+      });
       isTyping = false;
     }, 250);
+
   });
+
 
   inputName.addEventListener("keypress", (e) => {
     if (e.key === "Enter") btnNik.click();
@@ -86,6 +98,7 @@ export function initEvents() {
     if (!mensaje) return;
 
     socket.emit("send_message", {
+      room: currentRoom,
       message: mensaje,
       user: getUser(),
     });
@@ -97,4 +110,10 @@ export function initEvents() {
     delUser();
     resetUI();
   });
+}
+
+export function changeRoom(roomName) {
+  currentRoom = roomName;
+  clearChat();
+  socket.emit("join_room", roomName);
 }

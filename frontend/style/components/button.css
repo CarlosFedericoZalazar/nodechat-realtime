@@ -20,3 +20,9 @@
   background-color: var(--color-exit);
   color: whitesmoke;
 }
+
+@media (max-width: 768px) {
+  #btnExit{
+    width: 60px;
+  }
+}

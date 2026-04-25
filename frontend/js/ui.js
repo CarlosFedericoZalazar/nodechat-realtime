@@ -1,3 +1,5 @@
+import { changeRoom } from "./events.js";
+
 
 const containerNick = document.getElementById("container-nik");
 const sidebarUsers = document.getElementById("usersContainer");
@@ -71,7 +73,21 @@ export function renderUsers(users) {
     list.appendChild(li);
   });
 }
+export function renderRooms(rooms) {
+  const list = document.getElementById("roomsList");
+  list.innerHTML = "";
 
+  rooms.forEach(room => {
+    const li = document.createElement("li");
+    li.textContent = room;
+
+    li.addEventListener("click", () => {
+      changeRoom(room);
+    });
+
+    list.appendChild(li);
+  });
+}
 export function showChat(){
   containerNick.classList.add("hidden");
   chat.classList.remove("hidden");
