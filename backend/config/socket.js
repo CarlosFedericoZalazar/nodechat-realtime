@@ -12,6 +12,7 @@ export function initSocket(server) {
   console.log("init socket");
 
   io.on("connection", (socket) => {
+
     console.log("User connected:", socket.id);
 
     socket.on("check_nickname", (nickname, callback) => {
@@ -32,20 +33,6 @@ export function initSocket(server) {
         return;
       }
 
-      addUser(socket.id, user);
-
-      const defaultRoom = "Dev";
-
-      socket.join(defaultRoom);
-      currentRoom = defaultRoom;
-
-      socket.emit("room_list", rooms);
-
-      io.emit("user_joined", user.nickname);
-      io.emit("users_list", getUsersList());
-    });
-
-    socket.on("join", (user) => {
       addUser(socket.id, user);
 
       const defaultRoom = "General";
