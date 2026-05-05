@@ -15,6 +15,18 @@
 
 #usersList li:hover {
   background: rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+#roomsList li {
+  padding: 8px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+#roomsList li:hover {
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
 }
 
 

@@ -1,4 +1,4 @@
-import { agregarMensaje, agregarMensajeSistema, renderUsers, renderRooms, mostrarMensajeTyping, eliminarMensajeTyping  } from "./ui.js";
+import { agregarMensaje, agregarMensajeSistema, renderUsers, renderRooms, mostrarMensajeTyping, eliminarMensajeTyping, showError} from "./ui.js";
 import { getUser } from "./state.js";
 
 export const socket = io("https://nodechat-realtime-server.onrender.com", {
@@ -12,6 +12,10 @@ export const socket = io("https://nodechat-realtime-server.onrender.com", {
 export function initSocket() {
 
   socket.off(); // 🔥 limpia TODOS los listeners
+
+  socket.on("nickname_error", message =>{
+    showError(message);
+  })
 
   socket.on("receive_message", (data) => {
     agregarMensaje(

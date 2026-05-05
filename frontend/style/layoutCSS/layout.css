@@ -47,6 +47,10 @@ body {
   display: none;
 }
 
+#textRoom.hidden{
+  display: none;
+}
+
 #usersContainer {
   position: fixed;
   top: 0;

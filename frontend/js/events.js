@@ -1,6 +1,6 @@
 import { socket, initSocket } from "./socket.js";
 import { setUser, saveUser, getUser, delUser } from "./state.js";
-import { resetUI, showChat, clearChat, agregarMensaje } from "./ui.js";
+import { resetUI, showChat, clearChat, agregarMensaje, showError, updateRoom } from "./ui.js";
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
@@ -16,6 +16,7 @@ export const initUserSession = (user) => {
   setUser(user);
   saveUser(user);
 
+  updateRoom(currentRoom);
   socket.emit("join", user);
 
   socket.emit("join_room", currentRoom);
@@ -66,9 +67,13 @@ export function initEvents() {
 
   });
 
-
   inputName.addEventListener("keypress", (e) => {
     if (e.key === "Enter") btnNik.click();
+  });
+
+  inputName.addEventListener("input", () => {
+    const error = document.getElementById("nickError");
+    if (error) error.classList.add("hidden");
   });
 
   btnListUsers.addEventListener("click", () => {
@@ -83,7 +88,7 @@ export function initEvents() {
   socket.emit("check_nickname", nickname, (response) => {
 
     if (response.exists) {
-      alert("Ese nickname ya está en uso");
+      showError("Ese nickname ya está en uso");
       return;
     }
 
@@ -121,6 +126,7 @@ export function initEvents() {
 export function changeRoom(roomName) {
   currentRoom = roomName;
   localStorage.setItem("room", roomName);
+  updateRoom(roomName);
   clearChat();
   socket.emit("join_room", roomName);
 }
