@@ -11,8 +11,6 @@ app.use(cors());
 
 app.use(express.static("../frontend")); // solo en desarrollo
 
-console.log(process.env.SUPABASE_URL);
-
 const server = createServer(app);
 
 // 👉 inicializar sockets

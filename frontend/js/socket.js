@@ -1,8 +1,16 @@
-import { agregarMensaje, agregarMensajeSistema, renderUsers, renderRooms, mostrarMensajeTyping, eliminarMensajeTyping, showError} from "./ui.js";
+import {
+  agregarMensaje,
+  agregarMensajeSistema,
+  renderUsers,
+  renderRooms,
+  mostrarMensajeTyping,
+  eliminarMensajeTyping,
+  showError,
+} from "./ui.js";
 import { getUser } from "./state.js";
 
 export const socket = io("https://nodechat-realtime-server.onrender.com", {
-  autoConnect: false
+  autoConnect: false,
 });
 
 // export const socket = io("http://localhost:3000", {
@@ -10,28 +18,32 @@ export const socket = io("https://nodechat-realtime-server.onrender.com", {
 // });
 
 export function initSocket() {
-
   socket.off(); // 🔥 limpia TODOS los listeners
 
-  socket.on("nickname_error", message =>{
+  socket.on("nickname_error", (message) => {
     showError(message);
-  })
+  });
 
   socket.on("receive_message", (data) => {
     agregarMensaje(
       data.message,
       data.user.nickname,
       data.user.id,
-      getUser().id
+      getUser().id,
     );
   });
 
-  socket.on("user_joined", (user) => {
-    agregarMensajeSistema(`${user} se unió al chat`);
+  socket.on("user_joined", (data) => {
+    console.log(`El Usuario ${data.nickname} se unió en la sala ${data.room}`)
+    //if (data.room !== currentRoom) return; // 🔥 filtro clave
+
+    agregarMensajeSistema(`${data.nickname} se unió al chat`);
   });
 
-  socket.on("user_left", (user) => {
-    agregarMensajeSistema(`${user} se desconectó`);
+  socket.on("user_left", (data) => {
+    if (data.room !== currentRoom) return; // 🔥 filtro clave
+
+    agregarMensajeSistema(`${data.nickname} salió de la sala`);
   });
 
   socket.on("user_typing", (user) => {
