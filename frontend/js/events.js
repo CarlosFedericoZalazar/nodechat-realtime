@@ -82,21 +82,25 @@ export function initEvents() {
 
   btnNik.addEventListener("click", () => {
   const nickname = inputName.value.trim();
-
+  console.log(nickname);
   if (!nickname) return;
 
+  if (!socket.connected) {
+    socket.connect();
+  }
+  
   socket.emit("check_nickname", nickname, (response) => {
-
+    
     if (response.exists) {
       showError("Ese nickname ya está en uso");
       return;
     }
-
+    
     const user = {
       id: crypto.randomUUID(),
       nickname
     };
-
+    
     initUserSession(user);
     showChat();
   });
@@ -120,6 +124,7 @@ export function initEvents() {
   btnExit.addEventListener("click", () => {
     delUser();
     resetUI();
+    socket.disconnect();
   });
 }
 

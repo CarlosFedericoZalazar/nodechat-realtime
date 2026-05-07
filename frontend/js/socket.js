@@ -41,9 +41,9 @@ export function initSocket() {
   });
 
   socket.on("user_left", (data) => {
-    if (data.room !== currentRoom) return; // 🔥 filtro clave
+    //if (data.room !== currentRoom) return; // 🔥 filtro clave
 
-    agregarMensajeSistema(`${data.nickname} salió de la sala`);
+    agregarMensajeSistema(`${data.nickname} salió de ${data.room}`);
   });
 
   socket.on("user_typing", (user) => {

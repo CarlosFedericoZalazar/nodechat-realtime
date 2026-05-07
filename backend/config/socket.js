@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { addUser, removeUser, getUsersList } from "../services/userService.js";
+import { addUser, removeUser, getUsersList, getUser } from "../services/userService.js";
 import { saveMessage, getMessages } from "../services/messageService.js";
 
 const rooms = ["General", "Dev", "Random"];
@@ -19,7 +19,7 @@ export function initSocket(server) {
     // revisamos si existe nik
     socket.on("check_nickname", (nickname, callback) => {
       const users = getUsersList();
-
+      console.log(`Nickname a checkear ${nickname}`);
       const exists = users.some(
         (user) => user.nickname.toLowerCase() === nickname.toLowerCase(),
       );
@@ -48,20 +48,27 @@ export function initSocket(server) {
     // manejo de rooms
     socket.on("join_room", async (roomName) => {
       if (currentRoom === roomName) return;
+      console.log("ESTOY EN JOIN_ROOM");
 
-      const user = getUsersList().find((u) => u.id === socket.id);
+      const user = getUser(socket.id);
+
+      console.log("SOCKET ID:", socket.id);
+      console.log("USER FOUND:", user);
+
 
       // 👉 avisar que se fue de la sala anterior
       if (currentRoom && user) {
+        console.log("AHORA SI EMITE USER_LEFT!");
         socket.to(currentRoom).emit("user_left", {
           nickname: user.nickname,
           room: currentRoom
         });
         socket.leave(currentRoom);
       }
-
+      
       socket.join(roomName);
       currentRoom = roomName;
+      console.log(`Ahora current vale ${currentRoom}`);
 
       // 👉 avisar que se unió a la nueva
       if (user) {

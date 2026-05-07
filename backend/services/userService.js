@@ -14,3 +14,7 @@ export function removeUser(socketId) {
 export function getUsersList() {
   return Object.values(users);
 }
+
+export function getUser(socketId) {
+  return users[socketId];
+}
