@@ -5,10 +5,12 @@ import { resetUI, showChat, clearChat, agregarMensaje, showError, updateRoom } f
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
 const btnListUsers = document.getElementById("btnUsers");
+const btnListRooms = document.getElementById("btnRooms");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
-const panel = document.getElementById("usersContainer");
+const panelUsers = document.getElementById("usersContainer");
+const panelRooms = document.getElementById("roomsContainer");
 
 let currentRoom = localStorage.getItem("room") || "General";
 
@@ -77,7 +79,11 @@ export function initEvents() {
   });
 
   btnListUsers.addEventListener("click", () => {
-    panel.classList.toggle("active")
+    panelUsers.classList.toggle("show");
+  })
+  
+  btnListRooms.addEventListener("click", () => {
+    panelRooms.classList.toggle("show")
   })
 
   btnNik.addEventListener("click", () => {

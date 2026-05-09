@@ -1,32 +1,55 @@
-#usersContainer {
-  width: 250px;
-  background: rgba(30, 30, 47, 0.9); /* 👈 leve transparencia */
+.sidebar {
+  background: rgba(30, 30, 47, 0.9);
   color: white;
   padding: 15px;
-  
-  border-right: 1px solid rgba(245, 243, 243, 0.1); /* 👈 separación sutil */
+  z-index: 1000;
 }
 
-#usersList li {
+.sidebar.show {
+  transform: translateX(0);
+}
+
+.sidebar-list li {
   padding: 8px;
   border-radius: 6px;
   transition: 0.2s;
 }
 
-#usersList li:hover {
+.sidebar-list li:hover {
   background: rgba(255,255,255,0.1);
   cursor: pointer;
 }
 
-#roomsList li {
-  padding: 8px;
-  border-radius: 6px;
-  transition: 0.2s;
+#usersContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 250px;
+  height: 100vh;
+
+  transform: translateX(-110%);
+  transition: transform 0.3s ease;
 }
 
-#roomsList li:hover {
-  background: rgba(255,255,255,0.1);
-  cursor: pointer;
+#usersContainer.show {
+  transform: translateX(0);
+}
+
+#roomsContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 250px;
+  height: 100vh;
+
+  transform: translateX(-110%);
+  transition: transform 0.3s ease;
+}
+
+#roomsContainer.show {
+  transform: translateX(0);
 }
 
 

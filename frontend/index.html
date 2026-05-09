@@ -13,11 +13,14 @@
   <div class="app">
     
     <!-- Sidebar usuarios -->
-    <aside id="usersContainer" class="hidden">
+    <aside class="sidebar" id="usersContainer">
       <h3>Usuarios online</h3>
-      <ul id="usersList"></ul>
+      <ul class="sidebar-list" id="usersList"></ul>
+    </aside>
+    
+    <aside class="sidebar" id="roomsContainer">
       <h3>Rooms</h3>
-      <ul id="roomsList"></ul>
+      <ul class="sidebar-list" id="roomsList"></ul>     
     </aside>
     
     <!-- Chat principal -->
@@ -27,6 +30,7 @@
         <div id="buttonsHeader" class="hidden">
           <button id="btnExit" class="button">SALIR</button>
           <button id="btnUsers" class="button">👥</button>
+          <button id="btnRooms" class="button">💬 Rooms</button>
         </div>
       </div>
       <h2 id="title-room" class="hidden">Room</h2>
