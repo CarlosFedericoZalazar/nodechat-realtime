@@ -9,13 +9,13 @@ import {
 } from "./ui.js";
 import { getUser, getRoom } from "./state.js";
 
-// export const socket = io("https://nodechat-realtime-server.onrender.com", {
-//   autoConnect: false,
-// });
-
-export const socket = io("http://localhost:3000", {
-  autoConnect: false
+export const socket = io("https://nodechat-realtime-server.onrender.com", {
+  autoConnect: false,
 });
+
+// export const socket = io("http://localhost:3000", {
+//   autoConnect: false
+// });
 
 export function initSocket() {
   socket.off(); // 🔥 limpia TODOS los listeners
