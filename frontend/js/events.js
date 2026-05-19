@@ -1,25 +1,25 @@
 import { socket, initSocket } from "./socket.js";
-import { setUser, saveUser, getUser, delUser } from "./state.js";
+import { setUser, saveUser, getUser, delUser, setRoom, getRoom } from "./state.js";
 import { resetUI, showChat, clearChat, agregarMensaje, showError, updateRoom } from "./ui.js";
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
 const btnListUsers = document.getElementById("btnUsers");
+const btnListRooms = document.getElementById("btnRooms");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
-const panel = document.getElementById("usersContainer");
-
-let currentRoom = localStorage.getItem("room") || "General";
+const panelUsers = document.getElementById("usersContainer");
+const panelRooms = document.getElementById("roomsContainer");
 
 export const initUserSession = (user) => {
   setUser(user);
   saveUser(user);
 
-  updateRoom(currentRoom);
+  updateRoom(getRoom());
   socket.emit("join", user);
 
-  socket.emit("join_room", currentRoom);
+  socket.emit("join_room", getRoom());
 
   socket.off("chat_history");
   socket.on("chat_history", (messages) => {
@@ -50,7 +50,7 @@ export function initEvents() {
     if (!isTyping) {
       socket.emit("typing", {
         user: getUser(),
-        room: currentRoom
+        room: getRoom()
       });
       isTyping = true;
     }
@@ -60,7 +60,7 @@ export function initEvents() {
     typingTimeout = setTimeout(() => {
       socket.emit("stop_typing", {
         user: getUser(),
-        room: currentRoom
+        room: getRoom()
       });
       isTyping = false;
     }, 250);
@@ -76,9 +76,14 @@ export function initEvents() {
     if (error) error.classList.add("hidden");
   });
 
-  btnListUsers.addEventListener("click", () => {
-    panel.classList.toggle("active")
+   btnListUsers.addEventListener("click", () => {
+    panelUsers.classList.toggle("show");
   })
+  
+  btnListRooms.addEventListener("click", () => {
+    panelRooms.classList.toggle("show")
+  })
+
 
   btnNik.addEventListener("click", () => {
   const nickname = inputName.value.trim();
@@ -113,7 +118,7 @@ export function initEvents() {
     if (!mensaje) return;
 
     socket.emit("send_message", {
-      room: currentRoom,
+      room: getRoom(),
       message: mensaje,
       user: getUser(),
     });
@@ -129,8 +134,7 @@ export function initEvents() {
 }
 
 export function changeRoom(roomName) {
-  currentRoom = roomName;
-  localStorage.setItem("room", roomName);
+  setRoom(roomName);
   updateRoom(roomName);
   clearChat();
   socket.emit("join_room", roomName);

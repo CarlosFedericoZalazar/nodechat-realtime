@@ -7,15 +7,15 @@ import {
   eliminarMensajeTyping,
   showError,
 } from "./ui.js";
-import { getUser } from "./state.js";
+import { getUser, getRoom } from "./state.js";
 
-export const socket = io("https://nodechat-realtime-server.onrender.com", {
-  autoConnect: false,
-});
-
-// export const socket = io("http://localhost:3000", {
-//   autoConnect: false
+// export const socket = io("https://nodechat-realtime-server.onrender.com", {
+//   autoConnect: false,
 // });
+
+export const socket = io("http://localhost:3000", {
+  autoConnect: false
+});
 
 export function initSocket() {
   socket.off(); // 🔥 limpia TODOS los listeners
@@ -35,13 +35,13 @@ export function initSocket() {
 
   socket.on("user_joined", (data) => {
     console.log(`El Usuario ${data.nickname} se unió en la sala ${data.room}`)
-    //if (data.room !== currentRoom) return; // 🔥 filtro clave
+    if (data.room !== getRoom()) return; 
 
     agregarMensajeSistema(`${data.nickname} se unió al chat`);
   });
 
   socket.on("user_left", (data) => {
-    //if (data.room !== currentRoom) return; // 🔥 filtro clave
+    if (data.room !== getRoom()) return;
 
     agregarMensajeSistema(`${data.nickname} salió de ${data.room}`);
   });

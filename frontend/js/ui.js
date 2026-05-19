@@ -128,4 +128,5 @@ export function showError(message){
 
 export function clearChat(){
   chat.innerHTML= "";
+  eliminarMensajeTyping();
 }
