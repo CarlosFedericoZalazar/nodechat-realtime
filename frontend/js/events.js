@@ -4,13 +4,15 @@ import { resetUI, showChat, clearChat, agregarMensaje, showError, updateRoom } f
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
-const btnListUsers = document.getElementById("btnUsers");
-const btnListRooms = document.getElementById("btnRooms");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
 const panelUsers = document.getElementById("usersContainer");
 const panelRooms = document.getElementById("roomsContainer");
+
+// Declaramos las referencias una sola vez y de forma limpia
+const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+const usersContainer = document.getElementById('usersContainer');
 
 export const initUserSession = (user) => {
   setUser(user);
@@ -18,7 +20,6 @@ export const initUserSession = (user) => {
 
   updateRoom(getRoom());
   socket.emit("join", user);
-
   socket.emit("join_room", getRoom());
 
   socket.off("chat_history");
@@ -36,17 +37,22 @@ export const initUserSession = (user) => {
   });
 };
 
-
 export function initEvents() {
-
   let typingTimeout;
   let isTyping = false;
+
   inputMessage.addEventListener("keypress", (e) => {
     if (e.key === "Enter") btnMessage.click();
   });
 
-  inputMessage.addEventListener("input", () => {
+  // Lógica del botón toggle para el sidebar en celular
+  if (btnToggleSidebar && usersContainer) {
+    btnToggleSidebar.addEventListener('click', () => {
+      usersContainer.classList.toggle('active');
+    });
+  }
 
+  inputMessage.addEventListener("input", () => {
     if (!isTyping) {
       socket.emit("typing", {
         user: getUser(),
@@ -64,7 +70,6 @@ export function initEvents() {
       });
       isTyping = false;
     }, 250);
-
   });
 
   inputName.addEventListener("keypress", (e) => {
@@ -76,41 +81,30 @@ export function initEvents() {
     if (error) error.classList.add("hidden");
   });
 
-   btnListUsers.addEventListener("click", () => {
-    panelUsers.classList.toggle("show");
-  })
-  
-  btnListRooms.addEventListener("click", () => {
-    panelRooms.classList.toggle("show")
-  })
-
-
   btnNik.addEventListener("click", () => {
-  const nickname = inputName.value.trim();
-  console.log(nickname);
-  if (!nickname) return;
+    const nickname = inputName.value.trim();
+    console.log(nickname);
+    if (!nickname) return;
 
-  if (!socket.connected) {
-    socket.connect();
-  }
-  
-  socket.emit("check_nickname", nickname, (response) => {
-    
-    if (response.exists) {
-      showError("Ese nickname ya está en uso");
-      return;
+    if (!socket.connected) {
+      socket.connect();
     }
     
-    const user = {
-      id: crypto.randomUUID(),
-      nickname
-    };
-    
-    initUserSession(user);
-    showChat();
+    socket.emit("check_nickname", nickname, (response) => {
+      if (response.exists) {
+        showError("Ese nickname ya está en uso");
+        return;
+      }
+      
+      const user = {
+        id: crypto.randomUUID(),
+        nickname
+      };
+      
+      initUserSession(user);
+      showChat();
+    });
   });
-
-});
 
   btnMessage.addEventListener("click", () => {
     const mensaje = inputMessage.value;

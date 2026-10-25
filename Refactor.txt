@@ -1,0 +1,6 @@
+Por hacer:
+
+1. Trasladar toda la lógica de rooms al archivo rooms.js, hacer lo mismo con users.js
+2. Inhabilitar el room seleccionado en el sidebar y se esconda al seleccionar.
+3. Mejora hacer el registro del usuario.
+4. Solo mantener guardados los últimos 50 mensajes.

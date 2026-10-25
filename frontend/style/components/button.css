@@ -8,6 +8,7 @@
 
 #btnNik{
   background: var(--color-second);  
+  font-size: 1rem;
 }
 
 .button:hover{
@@ -21,7 +22,43 @@
   color: whitesmoke;
 }
 
+/* Por defecto en Escritorio (Desktop), el botón de menú está oculto */
+.menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2.4rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  align-self: flex-start;
+}
+
+/* Comportamiento exclusivo para Celulares / Pantallas chicas */
 @media (max-width: 768px) {
+  /* Mostramos el botón de hamburguesa en mobile */
+  .menu-btn {
+    display: block;
+    align-self: flex-end;
+  }
+
+  /* El sidebar se posiciona de forma flotante y se oculta a la izquierda */
+  .sidebar, #usersContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    transform: translateX(-100%); /* Oculto fuera de la pantalla */
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+
+  /* Cuando JavaScript le añade la clase .active, el sidebar se desliza y aparece */
+  .sidebar.active, #usersContainer.active {
+    transform: translateX(0);
+  }
+
   #btnExit{
     width: 60px;
   }
