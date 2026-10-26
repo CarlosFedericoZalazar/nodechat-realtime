@@ -6,4 +6,5 @@ Por hacer:
 4. Solo mantener guardados los últimos 50 mensajes.
 
 NOTAS
-Movì lògica del events al user.js
+- Movì lògica del events al user.js
+- Comenzar a mover todo lo de socket a socket.js

@@ -1,44 +1,17 @@
 import { socket} from "./socket.js";
-import { setUser, saveUser, getUser, delUser, setRoom, getRoom } from "./state.js";
-import { resetUI, showChat, clearChat, agregarMensaje, showError, updateRoom } from "./ui.js";
+import {getUser, delUser, getRoom } from "./state.js";
+import {resetUI, showChat, showError } from "./ui.js";
 import {initUserSession} from "./user.js"
-
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
 const inputMessage = document.getElementById("messageInput");
 const inputName = document.getElementById("inputNik");
 const btnNik = document.getElementById("btnNik");
-const panelUsers = document.getElementById("usersContainer");
-const panelRooms = document.getElementById("roomsContainer");
 
 // Declaramos las referencias una sola vez y de forma limpia
 const btnToggleSidebar = document.getElementById('btnToggleSidebar');
 const usersContainer = document.getElementById('usersContainer');
-
-
-// export const initUserSession = (user) => {
-//   setUser(user);
-//   saveUser(user);
-
-//   updateRoom(getRoom());
-//   socket.emit("join", user);
-//   socket.emit("join_room", getRoom());
-
-//   socket.off("chat_history");
-//   socket.on("chat_history", (messages) => {
-//     clearChat();
-//     console.log("estoy en el chat history!");
-//     messages.forEach(msg => {
-//       agregarMensaje(
-//         msg.content,
-//         msg.nickname,
-//         msg.user_id,
-//         getUser().id
-//       );
-//     });
-//   });
-// };
 
 export function initEvents() {
   let typingTimeout;
@@ -129,10 +102,3 @@ export function initEvents() {
     socket.disconnect();
   });
 }
-
-// export function changeRoom(roomName) {
-//   setRoom(roomName);
-//   updateRoom(roomName);
-//   clearChat();
-//   socket.emit("join_room", roomName);
-// }

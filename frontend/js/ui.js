@@ -1,6 +1,5 @@
 import { changeRoom } from "./room.js";
 
-
 const containerNick = document.getElementById("container-nik");
 const sidebarUsers = document.getElementById("usersContainer");
 const inputMessage = document.getElementById("input-area");
