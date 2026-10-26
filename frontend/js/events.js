@@ -1,6 +1,8 @@
-import { socket, initSocket } from "./socket.js";
+import { socket} from "./socket.js";
 import { setUser, saveUser, getUser, delUser, setRoom, getRoom } from "./state.js";
 import { resetUI, showChat, clearChat, agregarMensaje, showError, updateRoom } from "./ui.js";
+import {initUserSession} from "./user.js"
+
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
@@ -14,28 +16,28 @@ const panelRooms = document.getElementById("roomsContainer");
 const btnToggleSidebar = document.getElementById('btnToggleSidebar');
 const usersContainer = document.getElementById('usersContainer');
 
-export const initUserSession = (user) => {
-  setUser(user);
-  saveUser(user);
+// export const initUserSession = (user) => {
+//   setUser(user);
+//   saveUser(user);
 
-  updateRoom(getRoom());
-  socket.emit("join", user);
-  socket.emit("join_room", getRoom());
+//   updateRoom(getRoom());
+//   socket.emit("join", user);
+//   socket.emit("join_room", getRoom());
 
-  socket.off("chat_history");
-  socket.on("chat_history", (messages) => {
-    clearChat();
-    console.log("estoy en el chat history!");
-    messages.forEach(msg => {
-      agregarMensaje(
-        msg.content,
-        msg.nickname,
-        msg.user_id,
-        getUser().id
-      );
-    });
-  });
-};
+//   socket.off("chat_history");
+//   socket.on("chat_history", (messages) => {
+//     clearChat();
+//     console.log("estoy en el chat history!");
+//     messages.forEach(msg => {
+//       agregarMensaje(
+//         msg.content,
+//         msg.nickname,
+//         msg.user_id,
+//         getUser().id
+//       );
+//     });
+//   });
+// };
 
 export function initEvents() {
   let typingTimeout;
@@ -127,9 +129,9 @@ export function initEvents() {
   });
 }
 
-export function changeRoom(roomName) {
-  setRoom(roomName);
-  updateRoom(roomName);
-  clearChat();
-  socket.emit("join_room", roomName);
-}
+// export function changeRoom(roomName) {
+//   setRoom(roomName);
+//   updateRoom(roomName);
+//   clearChat();
+//   socket.emit("join_room", roomName);
+// }

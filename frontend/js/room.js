@@ -1,3 +1,4 @@
+
 let user = null;
 let currentRoom = localStorage.getItem("room") || "General";
 

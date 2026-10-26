@@ -4,3 +4,6 @@ Por hacer:
 2. Inhabilitar el room seleccionado en el sidebar y se esconda al seleccionar.
 3. Mejora hacer el registro del usuario.
 4. Solo mantener guardados los últimos 50 mensajes.
+
+NOTAS
+Movì lògica del events al user.js
