@@ -16,6 +16,7 @@ const panelRooms = document.getElementById("roomsContainer");
 const btnToggleSidebar = document.getElementById('btnToggleSidebar');
 const usersContainer = document.getElementById('usersContainer');
 
+
 // export const initUserSession = (user) => {
 //   setUser(user);
 //   saveUser(user);

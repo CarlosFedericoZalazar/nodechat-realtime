@@ -1,4 +1,4 @@
-import { changeRoom } from "./events.js";
+import { changeRoom } from "./room.js";
 
 
 const containerNick = document.getElementById("container-nik");

@@ -1,4 +1,5 @@
-import { initEvents, initUserSession } from "./js/events.js";
+import { initEvents} from "./js/events.js";
+import { initUserSession } from "./js/user.js";
 import { loadUser } from "./js/state.js";
 import {showChat} from "./js/ui.js";
 import { initSocket, socket } from "./js/socket.js";
