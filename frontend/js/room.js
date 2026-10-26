@@ -1,5 +1,5 @@
+import { socket } from "./socket.js";
 
-let user = null;
 let currentRoom = localStorage.getItem("room") || "General";
 
 const textRoom = document.getElementById("title-room");
@@ -10,12 +10,16 @@ export const setRoom = (room) => {
 };
 
 export const updateRoom = (room) => {
-  textRoom.textContent = `ROOM: ${room}`;
+  if (textRoom) {
+    textRoom.textContent = `ROOM: ${room}`;
+  }
 };
 
 export const changeRoom = (roomName) => {
   setRoom(roomName);
   updateRoom(roomName);
-  clearChat();
-  socket.emit("join_room", roomName);
+  
+  if (typeof socket !== "undefined") {
+    socket.emit("join_room", roomName);
+  }
 };

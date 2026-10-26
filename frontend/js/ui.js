@@ -8,23 +8,15 @@ const chatHead = document.getElementById("chat-head");
 const messageError = document.getElementById("nickError");
 const textRoom = document.getElementById("title-room");
 
-
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("usersList");
 
 export function agregarMensaje(mensaje, name, socketId, myId) {
   const p = document.createElement("p");
-
-  console.log("MY ID:", socketId);
-  console.log("MSG ID:", myId);
-
   const esMio = socketId === myId;
 
-  console.log(esMio);
-
   p.classList.add(esMio ? "my-message" : "other-message");
-
-   p.innerHTML = `
+  p.innerHTML = `
     <span class="name">${esMio ? "YO" : name}:</span>
     ${mensaje}
   `;
@@ -35,7 +27,6 @@ export function agregarMensaje(mensaje, name, socketId, myId) {
 
 export function agregarMensajeSistema(texto) {
   const p = document.createElement("p");
-
   p.textContent = texto;
   p.style.textAlign = "center";
   p.style.opacity = "0.5";
@@ -50,10 +41,8 @@ export function mostrarMensajeTyping(texto) {
   if (!typingElement) {
     typingElement = document.createElement("p");
     typingElement.id = "typing";
-    
     chat.appendChild(typingElement);
   }
-
   typingElement.textContent = texto;
 }
 
@@ -64,14 +53,13 @@ export function eliminarMensajeTyping() {
   }
 }
 
-
 export function renderUsers(users) {
   const list = document.getElementById("usersList");
   list.innerHTML = "";
 
   users.forEach(user => {
     const li = document.createElement("li");
-    li.textContent = user.nickname; // ✅ clave
+    li.textContent = user.nickname;
     list.appendChild(li);
   });
 }
@@ -85,6 +73,9 @@ export function renderRooms(rooms) {
     li.textContent = room;
 
     li.addEventListener("click", () => {
+      // 1. Limpiamos el chat localmente (sin necesidad de importar clearChat en room.js)
+      clearChat();
+      // 2. Cambiamos la sala usando la función importada de room.js
       changeRoom(room);
     });
 
@@ -106,7 +97,6 @@ export function showChat(){
 export function updateRoom(room){
   textRoom.textContent = `ROOM: ${room}`;
 }
-
 
 export function resetUI(){
   containerNick.classList.remove("hidden");
