@@ -7,6 +7,7 @@ const divButtonsHeader = document.getElementById("buttonsHeader");
 const chatHead = document.getElementById("chat-head");
 const messageError = document.getElementById("nickError");
 const textRoom = document.getElementById("title-room");
+const inputNik = document.getElementById("inputNik");
 
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("usersList");
@@ -107,6 +108,7 @@ export function resetUI(){
   chatHead.classList.remove("active");
   chatHead.classList.add("centered");
   textRoom.classList.add("hidden");
+  inputNik.value = "";
 }
 
 export function showError(message){

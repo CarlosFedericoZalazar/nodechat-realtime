@@ -32,6 +32,7 @@ export function initSocket(server) {
       addUser(socket.id, user);
 
       socket.emit("room_list", rooms);
+      console.log(`Console desde "join, emit room_list ${rooms}`);
       io.emit("users_list", getUsersList());
     });
 
@@ -43,7 +44,7 @@ export function initSocket(server) {
       const user = getUser(socket.id);
 
       console.log("SOCKET ID:", socket.id);
-      console.log("USER FOUND:", user);
+      console.log("USER FOUND:", user.nickname);
 
 
       // 👉 avisar que se fue de la sala anterior
@@ -76,6 +77,8 @@ export function initSocket(server) {
     // ✅ mensajes
     socket.on("send_message", async (data) => {
       console.log(`asi llega a send_message ${data.user.nickname}`);
+      console.log(`mensaje ${data.message}`);
+      console.log(`room recibido en mensaje ${data.room}`)
       try {
         const { room, message, user } = data;
 

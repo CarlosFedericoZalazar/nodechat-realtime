@@ -1,14 +1,9 @@
 import { socket } from "./socket.js";
-import { getRoom } from "./state.js";
+import { getRoom, setRoom } from "./state.js";
 
 let currentRoom = getRoom();
 
 const textRoom = document.getElementById("title-room");
-
-export const setRoom = (room) => {
-  currentRoom = room;
-  localStorage.setItem("room", room);
-};
 
 export const updateRoom = (room) => {
   if (textRoom) {
@@ -17,7 +12,9 @@ export const updateRoom = (room) => {
 };
 
 export const changeRoom = (roomName) => {
+  console.log(`Console desde changeRoom ${roomName}`)
   setRoom(roomName);
+  console.log(getRoom());
   updateRoom(roomName);
   
   if (typeof socket !== "undefined") {
