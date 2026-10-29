@@ -5,9 +5,17 @@ import { saveMessage, getMessages } from "../services/messageService.js";
 const rooms = ["General", "Dev", "Random"];
 
 export function initSocket(server) {
+
   const io = new Server(server, {
-    cors: { origin: "*" },
-  });
+  cors: {
+    origin: [
+      "https://nodechat-realtime-client.vercel.app", // Tu cliente en Vercel
+      "http://localhost:3000"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
 
   console.log("init socket");
 
