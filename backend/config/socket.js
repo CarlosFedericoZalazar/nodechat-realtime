@@ -18,30 +18,20 @@ export function initSocket(server) {
 
     // revisamos si existe nik
     socket.on("check_nickname", (nickname, callback) => {
-      const users = getUsersList();
-      console.log(`Nickname a checkear ${nickname}`);
-      const exists = users.some(
-        (user) => user.nickname.toLowerCase() === nickname.toLowerCase(),
-      );
-      
-      console.log(`Nick existente: ${exists}`);
+      const exists = nicknameExists(nickname);
+
       callback({ exists });
     });
 
     socket.on("join", (user) => {
-      const exists = getUsersList().some(
-        (u) => u.nickname.toLowerCase() === user.nickname.toLowerCase(),
-      );
-
-      if (exists) {
+      if (nicknameExists(user.nickname)) {
         socket.emit("nickname_error", "Nombre en uso");
         return;
       }
-      console.log(`asi llega a Add ${user.nickname}`);
+
       addUser(socket.id, user);
 
       socket.emit("room_list", rooms);
-
       io.emit("users_list", getUsersList());
     });
 
@@ -65,7 +55,7 @@ export function initSocket(server) {
         });
         socket.leave(currentRoom);
       }
-      
+
       socket.join(roomName);
       currentRoom = roomName;
       console.log(`Ahora current vale ${currentRoom}`);
@@ -119,11 +109,15 @@ export function initSocket(server) {
     // deconectamos
     socket.on("disconnect", () => {
       const username = removeUser(socket.id);
-      console.log(`El usuario ${username.nickname} se deconectó`)
+
+      if (username) {
+        console.log(`El usuario ${username.nickname} se desconectó`);
+      }
+
       if (username && currentRoom) {
         socket.to(currentRoom).emit("user_left", {
           nickname: username.nickname,
-          room: currentRoom
+          room: currentRoom,
         });
       }
 
@@ -132,4 +126,10 @@ export function initSocket(server) {
       console.log("User disconnected:", socket.id);
     });
   });
+}
+
+function nicknameExists(nickname) {
+  return getUsersList().some(
+    (user) => user.nickname.toLowerCase() === nickname.toLowerCase()
+  );
 }

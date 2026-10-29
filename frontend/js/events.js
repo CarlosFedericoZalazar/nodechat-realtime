@@ -35,6 +35,7 @@ export function initEvents() {
         room: getRoom()
       });
       isTyping = true;
+      console.log(`estoy en event input ${getUser()} y ${getRoom()}`);
     }
 
     clearTimeout(typingTimeout);
@@ -52,21 +53,19 @@ export function initEvents() {
     if (e.key === "Enter") btnNik.click();
   });
 
-  inputName.addEventListener("input", () => {
-    const error = document.getElementById("nickError");
-    if (error) error.classList.add("hidden");
-  });
 
   btnNik.addEventListener("click", () => {
     const nickname = inputName.value.trim();
-    console.log(nickname);
+    console.log(`Click en Btn NikName -> ${nickname}`);
     if (!nickname) return;
 
     if (!socket.connected) {
       socket.connect();
+      console.log(`conexion al socket`);
     }
     
     socket.emit("check_nickname", nickname, (response) => {
+      console.log(`- Emitimos el ${nickname} y respuesta ${response.exists}` )
       if (response.exists) {
         showError("Ese nickname ya está en uso");
         return;

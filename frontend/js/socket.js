@@ -25,6 +25,7 @@ export function initSocket() {
   });
 
   socket.on("receive_message", (data) => {
+    console.log('mensaje recibido');
     agregarMensaje(
       data.message,
       data.user.nickname,

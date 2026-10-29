@@ -1,6 +1,7 @@
 import { socket } from "./socket.js";
+import { getRoom } from "./state.js";
 
-let currentRoom = localStorage.getItem("room") || "General";
+let currentRoom = getRoom();
 
 const textRoom = document.getElementById("title-room");
 
