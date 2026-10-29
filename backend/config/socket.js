@@ -119,6 +119,7 @@ export function initSocket(server) {
 
     // deconectamos
     socket.on("disconnect", () => {
+      console.log(`El usuario con socket id ${socket.id} se ha desconectado`);
       const username = removeUser(socket.id);
 
       if (username) {

@@ -6,6 +6,11 @@ export function addUser(socketId, user) {
 
 export function removeUser(socketId) {
   const user = users[socketId];
+
+  // Si el usuario no existe en el objeto, salimos de forma segura
+  if (!user) {
+    return null;
+  }
   delete users[socketId];
   console.log(`En remover el user vale ${user.nickname}`)
   return user;
