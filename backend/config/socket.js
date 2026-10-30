@@ -9,7 +9,7 @@ export function initSocket(server) {
   const io = new Server(server, {
   cors: {
     origin: [
-      "https://nodechat-realtime-client.vercel.app", // Tu cliente en Vercel
+      "https://nodechat-realtime-client.vercel.app",
       "http://localhost:3000"
     ],
     methods: ["GET", "POST"],
@@ -20,6 +20,12 @@ export function initSocket(server) {
   console.log("init socket");
 
   io.on("connection", (socket) => {
+
+    socket.on("restore_session", async ({ user, room }) => {
+      console.log(`Restaurando sesión para ${user.nickname} en la sala ${room}`);
+    });
+
+
     console.log("User connected:", socket.id);
 
     let currentRoom = null;
@@ -50,10 +56,14 @@ export function initSocket(server) {
       console.log("ESTOY EN JOIN_ROOM");
 
       const user = getUser(socket.id);
-
-      console.log("SOCKET ID:", socket.id);
-      console.log("USER FOUND:", user.nickname);
-
+      try {
+          console.log("SOCKET ID:", socket.id);
+          console.log("USER FOUND:", user.nickname);
+         
+      } catch (e) {
+        
+        console.error("Error al obtener el usuario:", e);
+      }
 
       // 👉 avisar que se fue de la sala anterior
       if (currentRoom && user) {
