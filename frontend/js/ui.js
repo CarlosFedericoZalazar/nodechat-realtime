@@ -5,9 +5,7 @@ const sidebarUsers = document.getElementById("usersContainer");
 const inputMessage = document.getElementById("input-area");
 const divButtonsHeader = document.getElementById("buttonsHeader");
 const chatHead = document.getElementById("chat-head");
-const messageError = document.getElementById("nickError");
 const textRoom = document.getElementById("title-room");
-const inputNik = document.getElementById("inputNik");
 
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("usersList");
@@ -82,33 +80,6 @@ export function renderRooms(rooms) {
 
     list.appendChild(li);
   });
-}
-
-export function showChat(){
-  containerNick.classList.add("hidden");
-  chat.classList.remove("hidden");
-  sidebarUsers.classList.remove("hidden");
-  inputMessage.classList.remove("hidden");
-  divButtonsHeader.classList.remove("hidden");
-  chatHead.classList.remove("centered");
-  chatHead.classList.add("active");
-  textRoom.classList.remove("hidden");
-}
-
-export function updateRoom(room){
-  textRoom.textContent = `ROOM: ${room}`;
-}
-
-export function resetUI(){
-  containerNick.classList.remove("hidden");
-  chat.classList.add("hidden");
-  sidebarUsers.classList.add("hidden");
-  inputMessage.classList.add("hidden");
-  divButtonsHeader.classList.add("hidden");
-  chatHead.classList.remove("active");
-  chatHead.classList.add("centered");
-  textRoom.classList.add("hidden");
-  inputNik.value = "";
 }
 
 export function showError(message){

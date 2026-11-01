@@ -18,7 +18,7 @@ export const socket = io("https://nodechat-realtime-server.onrender.com", {
 // });
 
 export function initSocket() {
-  socket.off(); // 🔥 limpia TODOS los listeners
+  socket.off(); // 🔥 limpia TODOS los listeners  
 
   socket.on("nickname_error", (message) => {
     showError(message);

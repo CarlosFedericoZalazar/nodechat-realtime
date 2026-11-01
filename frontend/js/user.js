@@ -1,7 +1,8 @@
 import { socket} from "./socket.js";
-import {updateRoom, clearChat, agregarMensaje} from "./ui.js"
+import {clearChat, agregarMensaje} from "./ui.js"
 import { setUser, saveUser } from "./state.js";
 import { getRoom, getUser } from "./state.js";
+import { updateRoom } from "./room.js";
 
 export const initUserSession = (user) => {
   setUser(user);

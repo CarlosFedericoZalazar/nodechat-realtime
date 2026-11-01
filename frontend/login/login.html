@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeChat - Iniciar sesión</title>
+  <link rel="stylesheet" href="../style/main.css">
+</head>
+<body>
+  <header class="login-brand">
+    <h1 id="login-title">💬 NodeChat</h1>
+  </header>
+
+  <main class="main-login">
+
+    <form class="login-card" id="login-form" novalidate>
+
+      <h2 class="login-heading">INICIAR SESIÓN</h2>
+
+      <div class="field">
+        <label class="field-label" for="email">Correo electrónico</label>
+        <input class="field-input" id="email" name="email" type="email"
+               placeholder="tu@correo.com" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="password">Contraseña</label>
+        <input class="field-input" id="password" name="password" type="password"
+               placeholder="Tu contraseña" autocomplete="current-password" required>
+      </div>
+
+      <p class="login-error" id="login-error" role="alert" aria-live="polite"></p>
+
+      <button class="login-button" type="submit">Entrar</button>
+
+      <p class="login-text">
+        ¿Todavía no tenés cuenta? <a class="login-link" href="register.html">Registrate</a>
+      </p>
+      <p class="login-hint">Si te registraste hace poco, confirmá tu correo antes de entrar.</p>
+    </form>
+  </main>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>

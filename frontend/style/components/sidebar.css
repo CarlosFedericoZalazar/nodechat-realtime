@@ -56,9 +56,9 @@ sidebar.hidden, #usersContainer.hidden {
 /* Adaptación para pantallas chicas / móviles */
 @media (max-width: 768px) {
   .sidebar, #usersContainer {
-    width: 80%;
-    min-width: 80%;
-    height: 200px;
+    width: 60%;
+    min-width: 60%;
+    height: 250px;
     order: 2;
   }
 }

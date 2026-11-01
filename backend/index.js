@@ -11,6 +11,8 @@ app.use(cors());
 
 app.use(express.static("../frontend")); // solo en desarrollo
 
+
+
 const server = createServer(app);
 
 // 👉 inicializar sockets

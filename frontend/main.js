@@ -1,18 +1,21 @@
-import { initEvents} from "./js/events.js";
+import { initEvents } from "./js/events.js";
 import { initUserSession } from "./js/user.js";
-import { loadUser } from "./js/state.js";
-import {showChat} from "./js/ui.js";
 import { initSocket, socket } from "./js/socket.js";
+import { supabase } from "./supabase/supabaseClient.js";
 
-initSocket();
-socket.connect();
+const { data: { session } } = await supabase.auth.getSession();
 
-initEvents();
+if (!session) {
+  window.location.href = '/login/login.html';
+} else {
+  const user = {
+    id: session.user.id,
+    nickname: session.user.user_metadata.nick
+  };
 
-// 🔥 AUTO LOGIN
-const savedUser = loadUser();
+  initSocket();
+  socket.connect();
+  initEvents();
 
-if (savedUser) {
-  initUserSession(savedUser);
-  showChat();
+  initUserSession(user);
 }

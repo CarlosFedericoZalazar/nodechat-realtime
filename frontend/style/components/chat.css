@@ -10,11 +10,6 @@
   margin-bottom: 10px;
 }
 
-#chat.hidden {
-  display: none;
-}
-
-
 .chat-container {
   flex: 1;
   display: flex;
@@ -24,7 +19,7 @@
 
 .input-area {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .my-message {

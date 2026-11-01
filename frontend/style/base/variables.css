@@ -8,6 +8,13 @@
   --color-mychat: rgb(94, 94, 172);
   --color-otherchat: rgb(188, 76, 138);
   --color-exit: rgb(231, 85, 95);
+  --error: #fca5a5;
+  --border: #b3b3b8;
+
+  --accent: #55aec6;
+  --accent-text: #0b1020;
+  --link: #7dd3fc;
+  --link-hover: #bae6fd;
 
   /* FORMATO */
   --radius: 8px;

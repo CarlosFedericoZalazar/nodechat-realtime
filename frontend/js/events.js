@@ -1,13 +1,10 @@
 import { socket} from "./socket.js";
-import {getUser, delUser, getRoom } from "./state.js";
-import {resetUI, showChat, showError } from "./ui.js";
-import {initUserSession} from "./user.js"
+import {getUser, getRoom } from "./state.js";
+import { supabase } from "../supabase/supabaseClient.js";
 
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
 const inputMessage = document.getElementById("messageInput");
-const inputName = document.getElementById("inputNik");
-const btnNik = document.getElementById("btnNik");
 
 // Declaramos las referencias una sola vez y de forma limpia
 const btnToggleSidebar = document.getElementById('btnToggleSidebar');
@@ -49,38 +46,6 @@ export function initEvents() {
     }, 250);
   });
 
-  inputName.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") btnNik.click();
-  });
-
-
-  btnNik.addEventListener("click", () => {
-    const nickname = inputName.value.trim();
-    console.log(`Click en Btn NikName -> ${nickname}`);
-    if (!nickname) return;
-
-    if (!socket.connected) {
-      socket.connect();
-      console.log(`conexion al socket`);
-    }
-    
-    socket.emit("check_nickname", nickname, (response) => {
-      console.log(`- Emitimos el ${nickname} y respuesta ${response.exists}` )
-      if (response.exists) {
-        showError("Ese nickname ya está en uso");
-        return;
-      }
-      
-      const user = {
-        id: crypto.randomUUID(),
-        nickname
-      };
-      
-      initUserSession(user);
-      showChat();
-    });
-  });
-
   btnMessage.addEventListener("click", () => {
     const mensaje = inputMessage.value;
 
@@ -95,9 +60,16 @@ export function initEvents() {
     inputMessage.value = "";
   });
 
-  btnExit.addEventListener("click", () => {
-    delUser();
-    resetUI();
-    socket.disconnect();
+  btnExit.addEventListener("click", async () => {
+  socket.disconnect();
+
+  const { error } = await supabase.auth.signOut({ scope: 'local' });
+
+  if (error) {
+    console.error("Error during logout:", error);
+    return;
+  }
+
+  window.location.href = '/login/login.html';
   });
 }

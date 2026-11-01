@@ -32,7 +32,9 @@ export function initSocket(server) {
 
     // revisamos si existe nik
     socket.on("check_nickname", (nickname, callback) => {
+      console.log(`check_nickname recibido: ${nickname}`);
       const exists = nicknameExists(nickname);
+      console.log(`nicknameExists(${nickname}) = ${exists}`);
 
       callback({ exists });
     });
@@ -56,15 +58,7 @@ export function initSocket(server) {
       console.log("ESTOY EN JOIN_ROOM");
 
       const user = getUser(socket.id);
-      try {
-          console.log("SOCKET ID:", socket.id);
-          console.log("USER FOUND:", user.nickname);
-         
-      } catch (e) {
-        
-        console.error("Error al obtener el usuario:", e);
-      }
-
+      
       // 👉 avisar que se fue de la sala anterior
       if (currentRoom && user) {
         console.log("AHORA SI EMITE USER_LEFT!");

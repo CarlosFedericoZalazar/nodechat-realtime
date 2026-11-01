@@ -1,11 +1,9 @@
 Por hacer:
 
-1. Trasladar toda la lógica de rooms al archivo rooms.js, hacer lo mismo con users.js
-2. Inhabilitar el room seleccionado en el sidebar y se esconda al seleccionar.
-3. Mejora hacer el registro del usuario.
-4. Solo mantener guardados los últimos 50 mensajes.
+HECHO
 
-NOTAS
-- Movì lògica del events al user.js
-- Comenzar a mover todo lo de socket a socket.js
-- Renderizado de usuarios al cambiar el room.
+1. Logica de registro de usuario.
+
+POR HACER
+1. Login de usuario
+2. Mejoras visuales dashboard chat.

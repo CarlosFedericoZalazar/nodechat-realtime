@@ -2,16 +2,6 @@
   padding: 10px;
   border-radius: var(--radius);
   border: none;
-  width: 70%;
-}
-
-.input-area.hidden {
-  display: none;
-}
-
-#inputNik{
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
   width: 80%;
-  font-size: 1rem;
 }
+

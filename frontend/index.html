@@ -13,7 +13,7 @@
   <div class="app">
     
     <!-- Sidebar fijo a la izquierda -->
-    <aside class="sidebar hidden" id="usersContainer">
+    <aside class="sidebar" id="usersContainer">
       <div class="sidebar-scroll-section">
         <h3>Salas</h3>
         <ul class="sidebar-list" id="roomsList"></ul>
@@ -27,24 +27,17 @@
     <!-- Chat principal -->
     <main class="chat-container">
       <button id="btnToggleSidebar" class="menu-btn">☰</button>
-      <div id="chat-head" class="centered">
+      <div id="chat-head">
         <h1 id="title">💬 NodeChat</h1>
-        <div id="buttonsHeader" class="hidden">
+        <div id="buttonsHeader">
           <button id="btnExit" class="button">SALIR</button>
         </div>
       </div>
-      <h2 id="title-room" class="hidden">Room</h2>
+      <h2 id="title-room">Room</h2>
 
-      <div id="container-nik">
-        <label id="labelNik" for="inputNik">ENTER YOUR NIK!</label>
-        <input id="inputNik" placeholder="your nick!" class="input">
-        <p id="nickError" class="error-message hidden"></p>
-        <button class="button" id="btnNik">My Nik!</button>
-      </div>
+      <div id="chat"></div>
 
-      <div id="chat" class="hidden"></div>
-
-      <div id="input-area" class="input-area hidden">
+      <div id="input-area" class="input-area">
         <input type="text" id="messageInput" class="input" placeholder="Escribí un mensaje..." />
         <button id="btnMessage" class="button">Enviar</button>
       </div>
