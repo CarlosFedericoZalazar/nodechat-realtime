@@ -5,6 +5,11 @@ import { supabase } from "../supabase/supabaseClient.js";
 const btnMessage = document.getElementById("btnMessage");
 const btnExit = document.getElementById("btnExit");
 const inputMessage = document.getElementById("messageInput");
+const chatContainer = document.getElementById("appContainer");
+
+export function showChat() {
+  chatContainer.classList.remove("hidden");
+}
 
 // Declaramos las referencias una sola vez y de forma limpia
 const btnToggleSidebar = document.getElementById('btnToggleSidebar');

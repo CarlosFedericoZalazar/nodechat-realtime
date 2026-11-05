@@ -1,4 +1,4 @@
-import { initEvents } from "./js/events.js";
+import { initEvents, showChat } from "./js/events.js";
 import { initUserSession } from "./js/user.js";
 import { initSocket, socket } from "./js/socket.js";
 import { supabase } from "./supabase/supabaseClient.js";
@@ -18,4 +18,5 @@ if (!session) {
   initEvents();
 
   initUserSession(user);
+  showChat();
 }
